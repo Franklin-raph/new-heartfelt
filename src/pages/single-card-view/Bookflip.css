@@ -1,0 +1,125 @@
+.card_flip_book {
+  position: relative;
+  width: 450px;
+  height: 500px;
+}
+
+.card_flip_paper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  perspective: 1500px;
+  transform-origin: left;
+  transition: 0.35s;
+}
+
+.card_flip_paper_1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card_flip_paper_2 textarea {
+  width: 100%;
+  height: 100%;
+  padding: 60px 0 0 12px;
+  outline: 0;
+  border: 0;
+  resize: none;
+}
+
+.card_flip_paper_3 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* box-shadow: 0 1.5px 8px rgba(0, 0, 0, 0.2); */
+}
+
+.card_flip_paper_1 {
+  z-index: 3;
+}
+
+.card_flip_paper_2 {
+  z-index: 2;
+}
+
+.card_flip_paper_3 {
+  z-index: 1;
+  transform-origin: right !important;
+}
+
+.toggle_paper.card_flip_paper_1 {
+  transform: rotateY(130deg);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.toggle_paper.card_flip_paper_2 {
+  transform: rotateY(130deg);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.our_logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+.card_flip_books_page_nums {
+  color: var(--primary-color);
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.toggle_card_page_num.card_flip_books_page_nums.num_1,
+.toggle_card_page_num.card_flip_books_page_nums.num_2,
+.toggle_card_page_num.card_flip_books_page_nums.num_3 {
+  background: rgba(41, 158, 158, 0.8);
+  color: var(--generic-white);
+}
+
+.card_flip_book_icons {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.card_flip_book_icons i {
+  background: var(--primary-color);
+  color: var(--generic-white);
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.card_flip_input_controls_holder {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+}
