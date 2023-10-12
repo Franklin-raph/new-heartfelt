@@ -58,21 +58,35 @@ const Christmas = ({ baseUrl }) => {
                 <p>max 30mb</p>
               </div>
             </div>
-            {gift_card.map((card, i) => (
-              <div className="gift_card_segment_card" key={i}>
-                <div className="card_overlay">
-                  <button onClick={() => showCard(card.coverUrl)}>
-                    Preview
-                  </button>
-                  <button
-                    onClick={() => navigateToCardDeliveryDetails(card.coverUrl)}
-                  >
-                    Use Card
-                  </button>
-                </div>
-                <img src={card.coverUrl} alt="" />
+            {gift_card.length < 1 ? (
+              <div
+                style={{
+                  gridColumn: "2/-1",
+                  fontSize: "18px",
+                  alignSelf: "center",
+                }}
+              >
+                No cards uploaded here yet
               </div>
-            ))}
+            ) : (
+              gift_card.map((card, i) => (
+                <div className="gift_card_segment_card" key={i}>
+                  <div className="card_overlay">
+                    <button onClick={() => showCard(card.coverUrl)}>
+                      Preview
+                    </button>
+                    <button
+                      onClick={() =>
+                        navigateToCardDeliveryDetails(card.coverUrl)
+                      }
+                    >
+                      Use Card
+                    </button>
+                  </div>
+                  <img src={card.coverUrl} alt="" />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

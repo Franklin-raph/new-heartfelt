@@ -71,29 +71,43 @@ const Goodwill = ({ baseUrl }) => {
                 <p>Birthday</p>
               </div>
             </div>
-            {gift_card.map((card, i) => (
-              <div className="gift_card_segment_card" key={i}>
-                <div className="gift_card_segment_card_img">
-                  <div className="card_overlay">
-                    <button onClick={() => setOpenPreviewCardModal(true)}>
-                      Preview
-                    </button>
-                    <button onClick={() => navigate("/card-delivery-details")}>
-                      Use Card
-                    </button>
-                  </div>
-                  <img src={deliver_details_image} alt="" />
-                </div>
-                <div className="gift_card_segment_card_context">
-                  <h5> {card.card_title} </h5>
-                  <p>
-                    <span>{card.card_price}</span>
-                    <span>-</span>
-                    <span>{card.card_maxPrice}</span>
-                  </p>
-                </div>
+            {gift_card.length < 1 ? (
+              <div
+                style={{
+                  gridColumn: "2/-1",
+                  fontSize: "18px",
+                  alignSelf: "center",
+                }}
+              >
+                No cards uploaded here yet
               </div>
-            ))}
+            ) : (
+              gift_card.map((card, i) => (
+                <div className="gift_card_segment_card" key={i}>
+                  <div className="gift_card_segment_card_img">
+                    <div className="card_overlay">
+                      <button onClick={() => setOpenPreviewCardModal(true)}>
+                        Preview
+                      </button>
+                      <button
+                        onClick={() => navigate("/card-delivery-details")}
+                      >
+                        Use Card
+                      </button>
+                    </div>
+                    <img src={deliver_details_image} alt="" />
+                  </div>
+                  <div className="gift_card_segment_card_context">
+                    <h5> {card.card_title} </h5>
+                    <p>
+                      <span>{card.card_price}</span>
+                      <span>-</span>
+                      <span>{card.card_maxPrice}</span>
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

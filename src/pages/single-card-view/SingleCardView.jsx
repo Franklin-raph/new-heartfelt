@@ -218,13 +218,44 @@ const SingleCardView = ({ baseUrl }) => {
   const card_page_num_2 = useRef();
   const card_page_num_3 = useRef();
 
+  const [cardDate, setCardDate] = useState()
   async function getCardInfo() {
     const response = await fetch(`${baseUrl}/get-card-sign-details/${cardId}`);
     const data = await response.json();
     setSignedCardSignatures(data.signatures);
     setSignedCardDetails(data.details);
+    setCardDate(data.details.date)
     console.log(data);
   }
+
+  const targetDate = new Date(cardDate);
+  const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(targetDate));
+
+  function calculateTimeRemaining(targetDate) {
+    const currentDate = new Date();
+    const timeRemaining = targetDate - currentDate;
+    return timeRemaining > 0 ? timeRemaining : 0;
+  }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const remaining = calculateTimeRemaining(targetDate);
+      setTimeRemaining(remaining);
+
+      if (remaining <= 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  },[targetDate])
+
+  const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
   //
   useEffect(() => {
@@ -248,7 +279,11 @@ const SingleCardView = ({ baseUrl }) => {
         throw new Error("State not found");
     }
     getCardInfo();
+
+
+
   }, [paperPage]);
+
   // ===========
   useEffect(() => {
     const cardFlipPageNums = document.querySelectorAll(
@@ -306,6 +341,9 @@ const SingleCardView = ({ baseUrl }) => {
 
   return (
     <article className="single_card_view_section">
+
+
+
       {success && <SuccessAlert success={success} setSuccess={setSuccess} />}
       {error && <ErrorAlert error={error} setError={setError} />}
       <div className="single_card_page_header">
@@ -314,8 +352,17 @@ const SingleCardView = ({ baseUrl }) => {
         </h2>
         <div className="single_card_countdown_row">
           <p>
-            {signedCardDetails && signedCardDetails.date}{" "}
-            {signedCardDetails && signedCardDetails.time}
+          {signedCardDetails && 
+            <>
+            {timeRemaining <= 0 ? (
+                <p>0Days 0Hours 0Minutes 0Seconds</p>
+              ) : (
+                <p>
+                  {days}d {hours}h {minutes}m {seconds}s
+                </p>
+              )}
+            </>
+          }
           </p>
           {/* <div className="single_card_countdown_col">
             <h4>DAYS</h4>
