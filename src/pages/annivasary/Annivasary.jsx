@@ -66,8 +66,8 @@ const Annivasary = ({ baseUrl }) => {
                 <p>max 30mb</p>
               </div>
               <div className="gift_card_segment_card_context">
-                <h5> Happy Birthday </h5>
-                <p>Birthday</p>
+                <h5> Happy Anniversary </h5>
+                <p>Anniversary</p>
               </div>
             </div>
             {gift_card.map((card, i) => (

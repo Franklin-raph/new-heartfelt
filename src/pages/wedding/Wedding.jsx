@@ -4,60 +4,39 @@ import UploadCardCoverSideNav from "../../components/upload-card-cover-side-nav/
 import Occasions from "../../components/occasions/Occasions";
 import deliver_details_image from "../../assets/images/delivery-details-img.png";
 
-const Wedding = () => {
+const Wedding = ({ baseUrl }) => {
   const navigate = useNavigate();
   const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
+  const [gift_card, setGift_card] = useState([]);
+  const [imgSrc, setImgSrc] = useState("");
   //
-  // const user = JSON.parse(localStorage.getItem("user_info"));
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    if (!user) {
+      navigate("/sign-in");
+    }
+    fetchCards();
+  }, []);
   //
   const sidebar = useRef();
   const openSidebar = () => {
     sidebar.current.classList.toggle("open_sidebar");
   };
 
-  const gift_card = [
-    {
-      card_title: "Modern New Year Celeb...",
-      card_price: "₦500",
-      card_maxPrice: "₦50,000",
-    },
-    {
-      card_title: "Gold Happy Birthday Ca...",
-      card_price: "₦500",
-      card_maxPrice: "₦50,000",
-    },
-    {
-      card_title: "Modern New Year Celeb...",
-      card_price: "₦500",
-      card_maxPrice: "₦50,000",
-    },
-    {
-      card_title: "Gold Happy Birthday Ca...",
-      card_price: "₦500",
-      card_maxPrice: "₦50,000",
-    },
-    {
-      card_title: "Modern New Year Celeb...",
-      card_price: "₦500",
-      card_maxPrice: "₦50,000",
-    },
-    {
-      card_title: "Gold Happy Birthday Ca...",
-      card_price: "₦500",
-      card_maxPrice: "₦50,000",
-    },
-    {
-      card_title: "Modern New Year Celeb...",
-      card_price: "₦500",
-      card_maxPrice: "₦50,000",
-    },
-  ];
+  async function fetchCards() {
+    const response = await fetch(`${baseUrl}/fetch-cards-category/Wedding`);
+    const data = await response.json();
+    setGift_card(data.data);
+    console.log(data);
+  }
 
+  //
+  function showCard(imgSrc) {
+    setOpenPreviewCardModal(true);
+    setImgSrc(imgSrc);
+  }
+
+  //
   return (
     <div className="upload-card-cover">
       <Occasions />
@@ -92,25 +71,17 @@ const Wedding = () => {
             </div>
             {gift_card.map((card, i) => (
               <div className="gift_card_segment_card" key={i}>
-                <div className="gift_card_segment_card_img">
-                  <div className="card_overlay">
-                    <button onClick={() => setOpenPreviewCardModal(true)}>
-                      Preview
-                    </button>
-                    <button onClick={() => navigate("/card-delivery-details")}>
-                      Use Card
-                    </button>
-                  </div>
-                  <img src={deliver_details_image} alt="" />
+                <div className="card_overlay">
+                  <button onClick={() => showCard(card.coverUrl)}>
+                    Preview
+                  </button>
+                  <button
+                    onClick={() => navigateToCardDeliveryDetails(card.coverUrl)}
+                  >
+                    Use Card
+                  </button>
                 </div>
-                <div className="gift_card_segment_card_context">
-                  <h5> {card.card_title} </h5>
-                  <p>
-                    <span>{card.card_price}</span>
-                    <span>-</span>
-                    <span>{card.card_maxPrice}</span>
-                  </p>
-                </div>
+                <img src={card.coverUrl} alt="" />
               </div>
             ))}
           </div>
@@ -122,7 +93,7 @@ const Wedding = () => {
             className="ri-close-fill"
             onClick={() => setOpenPreviewCardModal(false)}
           ></i>
-          <img src={deliver_details_image} alt="" />
+          <img src={imgSrc} alt="" width="15%" />
         </div>
       )}
     </div>

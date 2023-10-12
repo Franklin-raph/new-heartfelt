@@ -589,7 +589,7 @@ const SingleCardView = ({ baseUrl }) => {
               )}
 
               {signedCardDetails &&
-                signedCardDetails.addVideoCheck === true && (
+                signedCardDetails.addMedia === true && (
                   <>
                     {paperPage > 1 ? (
                       <div>
@@ -618,7 +618,7 @@ const SingleCardView = ({ baseUrl }) => {
               )}
 
               {signedCardDetails &&
-                signedCardDetails.addAudioCheck === true && (
+                signedCardDetails.addMedia === true && (
                   <>
                     {paperPage > 1 ? (
                       <div onClick={() => setAddAudio(!addAudio)}>

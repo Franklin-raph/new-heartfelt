@@ -36,8 +36,7 @@ const DeliveryDetails = ({ baseUrl }) => {
 
   // check inputs
   const [addGiftCardCheck, setAddGiftCardCheck] = useState(false);
-  const [addVideoCheck, setAddVideoCheck] = useState(false);
-  const [addAudioCheck, setAddAudioCheck] = useState(true);
+  const [addMedia, setAddMedia] = useState(false);
   const [paymentSuccessfullModal, setPaymentSuccessfullModal] = useState(false);
   const [cardId, setCardId] = useState("");
 
@@ -101,8 +100,7 @@ const DeliveryDetails = ({ baseUrl }) => {
         recipientEmail: recipientEmail,
         recipientFullName: recipientFullName,
         // addConfetti: "false",
-        addAudioCheck: addAudioCheck,
-        addVideoCheck: addVideoCheck,
+        addMedia:addMedia,
         sendToEmail: sendToEmail,
         cardCoverUrl: uploadedCard,
         date: deliveryDate,
@@ -137,8 +135,7 @@ const DeliveryDetails = ({ baseUrl }) => {
           recipientFullName: recipientFullName,
           addConfetti: "false",
           // addAudioCheck: addAudioCheck,
-          addAudioCheck: true,
-          addVideoCheck: addVideoCheck,
+          addMedia: addMedia,
           sendToEmail: sendToEmail,
           cardCoverUrl: uploadedCard,
           date: deliveryDate,
@@ -402,8 +399,8 @@ const DeliveryDetails = ({ baseUrl }) => {
               <input
                 type="checkbox"
                 id="add_video"
-                checked={addVideoCheck}
-                onChange={() => setAddVideoCheck(!addVideoCheck)}
+                checked={addMedia}
+                onChange={() => setAddMedia(!addMedia)}
               />
               <label htmlFor="add_video">Add video and Audio</label>
             </div>
@@ -488,7 +485,7 @@ const DeliveryDetails = ({ baseUrl }) => {
             <p>Card Cover</p>
             <h6>₦4,999</h6>
           </div>
-          {addVideoCheck && (
+          {addMedia && (
             <div>
               <p>Video and Audio</p>
               <h6>₦3,500</h6>

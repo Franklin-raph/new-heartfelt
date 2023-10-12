@@ -4,17 +4,26 @@ import UploadCardCoverSideNav from "../../components/upload-card-cover-side-nav/
 import Occasions from "../../components/occasions/Occasions";
 import deliver_details_image from "../../assets/images/delivery-details-img.png";
 
-const ThankYou = ({baseUrl}) => {
+const ThankYou = ({ baseUrl }) => {
   const navigate = useNavigate();
   const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
-  const [gift_card, setGift_card] = useState([])
- 
+  const [gift_card, setGift_card] = useState([]);
+  const [imgSrc, setImgSrc] = useState("");
+
+  //
+  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    if (!user) {
+      navigate("/sign-in");
+    }
+    fetchCards();
+  }, []);
   //
   const sidebar = useRef();
   const openSidebar = () => {
     sidebar.current.classList.toggle("open_sidebar");
   };
-
+  //
 
   async function fetchCards() {
     const response = await fetch(`${baseUrl}/fetch-cards-category/Thankyou`);
@@ -22,14 +31,11 @@ const ThankYou = ({baseUrl}) => {
     setGift_card(data.data);
     console.log(data);
   }
-  //
-  // const user = JSON.parse(localStorage.getItem("user_info"));
-  useEffect(() => {
-    // if (!user) {
-    //   navigate("/");
-    // }
-    fetchCards()
-  }, []);
+
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
+  }
 
   return (
     <div className="upload-card-cover">
@@ -42,24 +48,24 @@ const ThankYou = ({baseUrl}) => {
         </p>
       </div>
       <section className="user_dashbaord_section">
-          <i
-            className="ri-align-justify user_dashboard_toggler open"
-            onClick={openSidebar}
-          ></i>
-          <UploadCardCoverSideNav sidebar={sidebar} openSidebar={openSidebar} />
-          <div className="user_dashboard_col_2">
-            <div className="gift_card_segment_row_upload_card_cover row_2">
-              <div className="gift_card_segment_card">
-                <div
-                  className="upload_gift_card_segment_card flex-center"
-                  onClick={() => navigate("/upload-card")}
-                >
-                  <i className="bx bx-upload"></i>
-                  <h4>Upload card cover</h4>
-                  <p>max 30mb</p>
-                </div>
+        <i
+          className="ri-align-justify user_dashboard_toggler open"
+          onClick={openSidebar}
+        ></i>
+        <UploadCardCoverSideNav sidebar={sidebar} openSidebar={openSidebar} />
+        <div className="user_dashboard_col_2">
+          <div className="gift_card_segment_row_upload_card_cover row_2">
+            <div className="gift_card_segment_card">
+              <div
+                className="upload_gift_card_segment_card flex-center"
+                onClick={() => navigate("/upload-card")}
+              >
+                <i className="bx bx-upload"></i>
+                <h4>Upload card cover</h4>
+                <p>max 30mb</p>
               </div>
-              {gift_card.map((card, i) => (
+            </div>
+            {gift_card.map((card, i) => (
               <div className="gift_card_segment_card" key={i}>
                 <div className="card_overlay">
                   <button onClick={() => showCard(card.coverUrl)}>
@@ -74,16 +80,16 @@ const ThankYou = ({baseUrl}) => {
                 <img src={card.coverUrl} alt="" />
               </div>
             ))}
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
       {openPreviewCardModal && (
         <div className="previewCardModal flex-center">
           <i
             className="ri-close-fill"
             onClick={() => setOpenPreviewCardModal(false)}
           ></i>
-          <img src={deliver_details_image} alt="" />
+          <img src={imgSrc} alt="" width="15%" />
         </div>
       )}
     </div>

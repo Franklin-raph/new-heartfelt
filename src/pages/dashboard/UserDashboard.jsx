@@ -5,35 +5,38 @@ import cardImgPreview from "../../assets/images/card_preview_template.jpg";
 
 const UserDashboard = ({baseUrl}) => {
   const navigate = useNavigate();
-  const [allMyCardTemplates, setAllMyCardTemplates] = useState([])
+  const [allMyCardTemplates, setAllMyCardTemplates] = useState()
   //
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     if (!user) {
+      console.log("first")
       navigate("/");
     }
     getMySavedCards()
   }, []);
-  //
+  // //
+
   const sidebar = useRef();
   const openSidebar = () => {
     sidebar.current.classList.toggle("open_sidebar");
   };
 
   async function getMySavedCards(){
+    console.log("Hello")
     const response = await fetch(`${baseUrl}/get-user-cards`,{
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
     })
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
     if(response.ok){
       setAllMyCardTemplates(data.data)
     }
-    if(!response.ok){
-      // alert("Something went wrong")
-    }
+    // if(!response.ok){
+    //   // alert("Something went wrong")
+    // }
     console.log(response, data)
   }
 
@@ -88,7 +91,7 @@ const UserDashboard = ({baseUrl}) => {
                   <p className="card_preview_recipient">{cardTemplate.recipientFullName}</p>
                   <p className="card_preview_Entries">{cardTemplate.entries}</p>
                   <p className="card_preview_status">{cardTemplate.delivery}</p>
-                  <p className="card_preview_status" onClick={navigate(`/`)} ><i class="ri-settings-3-line"></i></p>
+                  <p className="card_preview_status" onClick={() => navigate(`/`)} ><i class="ri-settings-3-line"></i></p>
                   <p className="card_preview_status"><i class="ri-delete-bin-fill"  style={{ fontSize:"18px", color:"red", padding:"5px" }}></i></p>
                   {/* <div className="update_card_preview_icons">
                     <i className="bx bx-link"></i>
