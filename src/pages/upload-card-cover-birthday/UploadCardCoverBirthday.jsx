@@ -4,18 +4,18 @@ import UploadCardCoverSideNav from "../../components/upload-card-cover-side-nav/
 import Occasions from "../../components/occasions/Occasions";
 import deliver_details_image from "../../assets/images/delivery-details-img.png";
 
-const UploadCardCoverBirthday = ({baseUrl}) => {
+const UploadCardCoverBirthday = ({ baseUrl }) => {
   const navigate = useNavigate();
   const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
-  const [imgsrc, setImgSrc] = useState("")
-  const [gift_card, setGift_card] = useState([])
+  const [imgsrc, setImgSrc] = useState("");
+  const [gift_card, setGift_card] = useState([]);
   //
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     if (user) {
       navigate("/upload-card-cover-birthday");
     }
-    fetchCards()
+    fetchCards();
   }, []);
   //
   const sidebar = useRef();
@@ -23,21 +23,21 @@ const UploadCardCoverBirthday = ({baseUrl}) => {
     sidebar.current.classList.toggle("open_sidebar");
   };
 
-  async function fetchCards(){
-    const response = await fetch(`${baseUrl}/fetch-cards`)
-    const data = await response.json()
-    setGift_card(data.data)
-    console.log(data)
+  async function fetchCards() {
+    const response = await fetch(`${baseUrl}/fetch-cards-category/Birthday`);
+    const data = await response.json();
+    setGift_card(data.data);
+    console.log(data);
   }
 
-  function showCard(imgsrc){
-    setOpenPreviewCardModal(true)
-    setImgSrc(imgsrc)
+  function showCard(imgsrc) {
+    setOpenPreviewCardModal(true);
+    setImgSrc(imgsrc);
   }
 
-  function navigateToCardDeliveryDetails(imgsrc){
-    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc))
-    navigate("/card-delivery-details")
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
   }
 
   return (
@@ -67,20 +67,21 @@ const UploadCardCoverBirthday = ({baseUrl}) => {
                 <h4>Upload card cover</h4>
                 <p>max 30mb</p>
               </div>
-              <div className="gift_card_segment_card_context">
-              </div>
+              <div className="gift_card_segment_card_context"></div>
             </div>
             {gift_card.map((card, i) => (
               <div className="gift_card_segment_card" key={i}>
-                  <div className="card_overlay">
-                    <button onClick={() => showCard(card.coverUrl)}>
-                      Preview
-                    </button>
-                    <button onClick={() => navigateToCardDeliveryDetails(card.coverUrl)}>
-                      Use Card
-                    </button>
-                  </div>
-                  <img src={card.coverUrl} alt="" />
+                <div className="card_overlay">
+                  <button onClick={() => showCard(card.coverUrl)}>
+                    Preview
+                  </button>
+                  <button
+                    onClick={() => navigateToCardDeliveryDetails(card.coverUrl)}
+                  >
+                    Use Card
+                  </button>
+                </div>
+                <img src={card.coverUrl} alt="" />
               </div>
             ))}
           </div>
@@ -92,7 +93,7 @@ const UploadCardCoverBirthday = ({baseUrl}) => {
             className="ri-close-fill"
             onClick={() => setOpenPreviewCardModal(false)}
           ></i>
-          <img src={imgsrc} alt="" width="15%"/>
+          <img src={imgsrc} alt="" width="15%" />
         </div>
       )}
     </div>

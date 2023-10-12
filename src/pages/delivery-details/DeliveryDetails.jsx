@@ -37,7 +37,7 @@ const DeliveryDetails = ({ baseUrl }) => {
   // check inputs
   const [addGiftCardCheck, setAddGiftCardCheck] = useState(false);
   const [addVideoCheck, setAddVideoCheck] = useState(false);
-  const [addAudioCheck, setAddAudioCheck] = useState(false);
+  const [addAudioCheck, setAddAudioCheck] = useState(true);
   const [paymentSuccessfullModal, setPaymentSuccessfullModal] = useState(false);
   const [cardId, setCardId] = useState("");
 
@@ -136,7 +136,8 @@ const DeliveryDetails = ({ baseUrl }) => {
           recipientEmail: recipientEmail,
           recipientFullName: recipientFullName,
           addConfetti: "false",
-          addAudioCheck: addAudioCheck,
+          // addAudioCheck: addAudioCheck,
+          addAudioCheck: true,
           addVideoCheck: addVideoCheck,
           sendToEmail: sendToEmail,
           cardCoverUrl: uploadedCard,

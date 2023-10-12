@@ -1991,6 +1991,12 @@ nav input {
   color: var(--primary-color);
 }
 
+.react_draggable_cont {
+  width: 350px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
 /* ====================== */
 /* ====================== */
 /* .card_flip_row {
@@ -4485,6 +4491,14 @@ nav input {
   .card_flip_book,
   .view_modal_input_controls {
     width: 370px;
+  }
+
+  .react_draggable_cont {
+    width: 90%;
+  }
+
+  .view_modal_input_controls {
+    width: 100%;
   }
 }
 /* =========================================== */
