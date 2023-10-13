@@ -1,12 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DashBoardNav from "../../components/dashboard-nav/DashBoardNav";
 import { useNavigate } from "react-router-dom";
 import { AccountInfoNavLinks } from "../account-personal-info/AccountInfo";
+import ErrorAlert from "../../components/alert/ErrorAlert";
+import SuccessAlert from "../../components/alert/SuccessAlert";
 
-const AccountChangePassword = () => {
+const AccountChangePassword = ({baseUrl}) => {
   const navigate = useNavigate();
+  const [newPwd, setNewPwd] = useState("")
+  const [oldPwd, setOldPwd] = useState("")
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
   //
-  const user = JSON.parse(localStorage.getItem("user_info"));
+  const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     if (!user) {
       // navigate("/");
@@ -17,6 +23,28 @@ const AccountChangePassword = () => {
   const openSidebar = () => {
     sidebar.current.classList.toggle("open_sidebar");
   };
+
+  async function updatePassword(e){
+    console.log(user.accessToken, JSON.stringify({oldPwd, newPwd}))
+    e.preventDefault()
+    const response = await fetch(`${baseUrl}/update-user-password`,{
+      method:"POST",
+      body: JSON.stringify({oldPwd, newPwd}),
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+        "Content-Type":"application/json"
+      },
+    })
+    const data = await response.json()
+    if(!response.ok){
+      setError(data.message)
+    }
+
+    if(response.ok){
+      setSuccess(data.message)
+    }
+    console.log(data, response)
+  }
 
   //
   return (
@@ -40,6 +68,7 @@ const AccountChangePassword = () => {
               className="change_password_input"
               type="text"
               id="first_name"
+              onChange={e => setOldPwd(e.target.value)}
             />
           </div>
           <div className="account_info_input_div">
@@ -48,11 +77,14 @@ const AccountChangePassword = () => {
               className="change_password_input"
               type="text"
               id="last_name"
+              onChange={e => setNewPwd(e.target.value)}
             />
           </div>
-          <button className="save_password_change_btn">Save</button>
+          <button className="save_password_change_btn" onClick={updatePassword}>Save</button>
         </form>
       </div>
+      {error && <ErrorAlert error={error} setError={setError}/> }
+      {success && <SuccessAlert success={success} setSuccess={setSuccess}/> }
     </section>
   );
 };

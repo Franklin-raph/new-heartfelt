@@ -103,11 +103,11 @@ function App() {
           path="/user-dashboard"
           element={<UserDashboard baseUrl={baseUrl} />}
         />
-        <Route path="/user-dashboard-signed-cards" element={<SignedCards />} />
+        <Route path="/user-dashboard-signed-cards" element={<SignedCards baseUrl={baseUrl}/>} />
         <Route path="/account-personal-info" element={<AccountInfo />} />
         <Route
           path="/account-change-password"
-          element={<AccountChangePassword />}
+          element={<AccountChangePassword baseUrl={baseUrl}/>}
         />
         <Route
           path="/account-delete-account"
@@ -118,7 +118,7 @@ function App() {
         <Route path="/annual-plan" element={<AnnualPlans />} />
         <Route path="/annual-plan-my-team" element={<MyTeams />} />
         <Route path="/annual-plan-logo-settings" element={<LogoSettings />} />
-        <Route path="/account-custom-name" element={<AccountCustomName />} />
+        <Route path="/account-custom-name" element={<AccountCustomName baseUrl={baseUrl}/>} />
         <Route path="/upload-card" element={<UploadCard baseUrl={baseUrl} />} />
         <Route path="/saved-card" element={<SavedCards baseUrl={baseUrl} />} />
         <Route

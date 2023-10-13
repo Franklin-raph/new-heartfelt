@@ -4,7 +4,7 @@ import UploadCardCoverSideNav from "../../components/upload-card-cover-side-nav/
 import Occasions from "../../components/occasions/Occasions";
 import deliver_details_image from "../../assets/images/delivery-details-img.png";
 
-const Relationship = () => {
+const Relationship = ({baseUrl}) => {
     const navigate = useNavigate();
     const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
     const [gift_card, setGift_card] = useState([]);

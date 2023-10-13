@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DashBoardNav from "../../components/dashboard-nav/DashBoardNav";
 import { useNavigate } from "react-router-dom";
 import { AccountInfoNavLinks } from "../account-personal-info/AccountInfo";
 
-const AccountCustomName = () => {
+const AccountCustomName = ({baseUrl}) => {
   const navigate = useNavigate();
   //
-  const user = JSON.parse(localStorage.getItem("user_info"));
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [newCustomName, setNewCustomName] = useState("")
   useEffect(() => {
     if (!user) {
       // navigate("/");
@@ -17,6 +18,22 @@ const AccountCustomName = () => {
   const openSidebar = () => {
     sidebar.current.classList.toggle("open_sidebar");
   };
+  // update-custom-name
+
+  async function updateUserName(e){
+    console.log(user.accessToken)
+    e.preventDefault()
+    const response = await fetch(`${baseUrl}/update-custom-name`,{
+      method:"POST",
+      body: JSON.stringify({newCustomName}),
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+        "Content-Type":"application/json"
+      },
+    })
+    const data = await response.json()
+    console.log(data, response)
+  }
 
   //
   return (
@@ -41,10 +58,11 @@ const AccountCustomName = () => {
               type="text"
               id="first_name"
               placeholder="Mary"
+              onChange={e => setNewCustomName(e.target.value)}
             />
             <p>This Refrects as "From" in all group cards sent.</p>
           </div>
-          <button className="save_password_change_btn">Save</button>
+          <button className="save_password_change_btn" onClick={updateUserName}>Save</button>
         </form>
       </div>
     </section>

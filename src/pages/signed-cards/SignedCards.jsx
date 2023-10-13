@@ -3,7 +3,7 @@ import DashBoardNav from "../../components/dashboard-nav/DashBoardNav";
 import { NavLink, useNavigate } from "react-router-dom";
 import cardImgPreview from "../../assets/images/card_preview_template.jpg";
 
-const SignedCards = () => {
+const SignedCards = ({baseUrl}) => {
   //
   const navigate = useNavigate();
   const [allMySignedCardTemplates, setAllMySignedCardTemplates] = useState([])
@@ -22,7 +22,7 @@ const SignedCards = () => {
   };
 
   async function getMySignedCards(){
-    const response = await fetch(`${baseUrl}/get-user-cards`,{
+    const response = await fetch(`${baseUrl}/get-signed-cards`,{
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
@@ -77,52 +77,27 @@ const SignedCards = () => {
             <h4>Settings</h4>
             <h4>More</h4>
           </div>
-          <div className="user_dashboard_item_row">
-            {/*  */}
-
-            <div className="user_dashboard_card_item">
-              {/* <img src={cardImgPreview} alt="" className="dashboard_item_img" />
-              <p className="card_preview_create_date">10 April 2023</p>
-              <p className="card_preview_created_by">Chisom</p>
-              <p className="card_preview_recipient">Chisom</p>
-              <p className="card_preview_Entries">2</p>
-              <p className="card_preview_status sent">Signed</p>
-              <div className="update_card_preview_icons">
-                <i className="ri-eye-line"></i>
-                <i className="bx bx-link"></i>
-                <i className="bx bx-dots-horizontal-rounded"></i>
-              </div> */}
-            </div>
-            {/*  */}
-            <div className="user_dashboard_card_item">
-              {/* <img src={cardImgPreview} alt="" className="dashboard_item_img" />
-              <p className="card_preview_create_date">10 April 2023</p>
-              <p className="card_preview_created_by">Chisom</p>
-              <p className="card_preview_recipient">Chisom</p>
-              <p className="card_preview_Entries">2</p>
-              <p className="card_preview_status sent">Signed</p>
-              <div className="update_card_preview_icons">
-                <i className="ri-eye-line"></i>
-                <i className="bx bx-link"></i>
-                <i className="bx bx-dots-horizontal-rounded"></i>
-              </div> */}
-            </div>
-            {/*  */}
-            <div className="user_dashboard_card_item">
-              {/* <img src={cardImgPreview} alt="" className="dashboard_item_img" />
-              <p className="card_preview_create_date">10 April 2023</p>
-              <p className="card_preview_created_by">Chisom</p>
-              <p className="card_preview_recipient">Chisom</p>
-              <p className="card_preview_Entries">2</p>
-              <p className="card_preview_status sent">Signed</p>
-              <div className="update_card_preview_icons">
-                <i className="ri-eye-line"></i>
-                <i className="bx bx-link"></i>
-                <i className="bx bx-dots-horizontal-rounded"></i>
-              </div> */}
-            </div>
-            {/*  */}
-          </div>
+          {allMySignedCardTemplates && allMySignedCardTemplates.length === 0 && <p style={{ fontSize:"1.4rem", textAlign:"center", marginTop:"5rem" }}>You have no signed cards yet</p>}
+          {allMySignedCardTemplates && 
+            allMySignedCardTemplates.map(cardTemplate => (
+              <div className="user_dashboard_item_row">
+                <div className="user_dashboard_card_item">
+                  <img src={cardTemplate.cardCoverUrl} alt="" className="dashboard_item_img" />
+                  <p className="card_preview_create_date">{cardTemplate.status === 2 ? "Paid" : "Unpaid"}</p>
+                  <p className="card_preview_created_by">{cardTemplate.created_at.slice(0, 10)}</p>
+                  <p className="card_preview_recipient">{cardTemplate.recipientFullName}</p>
+                  <p className="card_preview_Entries">{cardTemplate.signatureCount}</p>
+                  <p className="card_preview_status">{cardTemplate.date}</p>
+                  <p className="card_preview_status" onClick={() => navigateToCardSettings(cardTemplate.status)} ><i class="ri-settings-3-line"></i></p>
+                  <p className="card_preview_status"><i class="ri-delete-bin-fill"  style={{ fontSize:"18px", color:"red", padding:"5px" }}></i></p>
+                  {/* <div className="update_card_preview_icons">
+                    <i className="bx bx-link"></i>
+                    <i className="bx bx-dots-horizontal-rounded"></i>
+                  </div> */}
+                </div>
+              </div>
+          ))
+          }
         </div>
       </div>
     </section>
