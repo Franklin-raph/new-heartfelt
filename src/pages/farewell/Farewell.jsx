@@ -8,6 +8,7 @@ const Farewell = ({baseUrl}) => {
   const navigate = useNavigate();
   const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
   const [gift_card, setGift_card] = useState([])
+  const [imgSrc, setImgSrc] = useState("");
  
   //
   const sidebar = useRef();
@@ -30,6 +31,17 @@ const Farewell = ({baseUrl}) => {
     // }
     fetchCards()
   }, []);
+
+  
+  function showCard(imgSrc) {
+    setOpenPreviewCardModal(true);
+    setImgSrc(imgSrc);
+  }
+
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
+  }
 
   return (
     <div className="upload-card-cover">
@@ -83,7 +95,7 @@ const Farewell = ({baseUrl}) => {
             className="ri-close-fill"
             onClick={() => setOpenPreviewCardModal(false)}
           ></i>
-          <img src={deliver_details_image} alt="" />
+          <img src={imgSrc} width="15%" alt="" />
         </div>
       )}
     </div>

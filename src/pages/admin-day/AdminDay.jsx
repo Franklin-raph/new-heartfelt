@@ -26,7 +26,7 @@ const AdminDay = ({ baseUrl }) => {
 
   //
   async function fetchCards() {
-    const response = await fetch(`${baseUrl}/fetch-cards-category/Adminday`);
+    const response = await fetch(`${baseUrl}/fetch-cards-category/Admin day`);
     const data = await response.json();
     setGift_card(data.data);
     console.log(data);
@@ -36,6 +36,11 @@ const AdminDay = ({ baseUrl }) => {
   function showCard(imgSrc) {
     setOpenPreviewCardModal(true);
     setImgSrc(imgSrc);
+  }
+
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
   }
 
   //
@@ -67,21 +72,35 @@ const AdminDay = ({ baseUrl }) => {
                 <p>max 30mb</p>
               </div>
             </div>
-            {gift_card.map((card, i) => (
-              <div className="gift_card_segment_card" key={i}>
-                <div className="card_overlay">
-                  <button onClick={() => showCard(card.coverUrl)}>
-                    Preview
-                  </button>
-                  <button
-                    onClick={() => navigateToCardDeliveryDetails(card.coverUrl)}
-                  >
-                    Use Card
-                  </button>
-                </div>
-                <img src={card.coverUrl} alt="" />
+            {gift_card.length < 1 ? (
+              <div
+                style={{
+                  gridColumn: "2/-1",
+                  fontSize: "18px",
+                  alignSelf: "center",
+                }}
+              >
+                No cards uploaded here yet
               </div>
-            ))}
+            ) : (
+              gift_card.map((card, i) => (
+                <div className="gift_card_segment_card" key={i}>
+                  <div className="card_overlay">
+                    <button onClick={() => showCard(card.coverUrl)}>
+                      Preview
+                    </button>
+                    <button
+                      onClick={() =>
+                        navigateToCardDeliveryDetails(card.coverUrl)
+                      }
+                    >
+                      Use Card
+                    </button>
+                  </div>
+                  <img src={card.coverUrl} alt="" />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -89,7 +108,7 @@ const AdminDay = ({ baseUrl }) => {
         <div className="previewCardModal flex-center">
           <i
             className="ri-close-fill"
-            onClick={() => showCard(gift_card.coverUrl)}
+            onClick={() => setOpenPreviewCardModal(false)}
           ></i>
           <img src={imgSrc} alt="" width="15%" />
         </div>

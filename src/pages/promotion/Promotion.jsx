@@ -12,9 +12,9 @@ const Promotion = ({ baseUrl }) => {
   //
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    if (!user) {
-      navigate("/sign-in");
-    }
+    // if (!user) {
+    //   navigate("/sign-in");
+    // }
     fetchCards();
   }, []);
   //
@@ -23,6 +23,7 @@ const Promotion = ({ baseUrl }) => {
     sidebar.current.classList.toggle("open_sidebar");
   };
   //
+
   async function fetchCards() {
     const response = await fetch(`${baseUrl}/fetch-cards-category/Promotion`);
     const data = await response.json();
@@ -35,6 +36,12 @@ const Promotion = ({ baseUrl }) => {
     setOpenPreviewCardModal(true);
     setImgSrc(imgSrc);
   }
+  
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
+  }
+  
 
   //
   return (

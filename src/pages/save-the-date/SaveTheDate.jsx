@@ -39,6 +39,11 @@ const SaveTheDate = ({ baseUrl }) => {
     setImgSrc(imgSrc);
   }
 
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
+  }
+
   //
   return (
     <div className="upload-card-cover">
@@ -108,7 +113,7 @@ const SaveTheDate = ({ baseUrl }) => {
         <div className="previewCardModal flex-center">
           <i
             className="ri-close-fill"
-            onClick={() => showCard(gift_card.coverUrl)}
+            onClick={() => setOpenPreviewCardModal(false)}
           ></i>
           <img src={imgSrc} alt="" width="15%" />
         </div>

@@ -29,10 +29,8 @@ import UploadCard from "./pages/upload-card/UploadCard";
 import PreviewUploadedCard from "./pages/preview-uploaded-card/PreviewUploadedCard";
 import SavedCards from "./pages/saved-cards/SavedCards";
 import Annivasary from "./pages/annivasary/Annivasary";
-import Festival from "./pages/festival/Festival";
 import Love from "./pages/love/Love";
 import Relationship from "./pages/relationship/Relationship";
-import Goodwill from "./pages/goodwill/Goodwill";
 import Sympathy from "./pages/sympathy/Sympathy";
 import FlutterPage from "./pages/flutter-page/FlutterPage";
 import GetToTopOnRender from "./components/get-to-top-on-render/GetToTopOnRender";
@@ -144,12 +142,7 @@ function App() {
           path="/preview-uploaded-card"
           element={<PreviewUploadedCard baseUrl={baseUrl} />}
         />
-        <Route path="/upload-card-cover-festival" element={<Festival />} />
         <Route path="/upload-card-cover-love" element={<Love baseUrl={baseUrl}/>} />
-        <Route
-          path="/upload-card-cover-goodwill"
-          element={<Goodwill baseUrl={baseUrl} />}
-        />
         <Route
           path="/upload-card-cover-relationship"
           element={<Relationship baseUrl={baseUrl}/>}

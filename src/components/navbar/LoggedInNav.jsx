@@ -125,12 +125,6 @@ async function checkTokenStatus(){
                 <li onClick={() => navigate("/upload-card-cover-annivasary")}>
                   Annivasary
                 </li>
-                <li onClick={() => navigate("/upload-card-cover-goodwill")}>
-                  Goodwill
-                </li>
-                <li onClick={() => navigate("/upload-card-cover-festival")}>
-                  Festival
-                </li>
                 <li onClick={() => navigate("/upload-card-cover-sympathy")}>
                   Sympathy
                 </li>
