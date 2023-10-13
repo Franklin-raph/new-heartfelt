@@ -32,6 +32,12 @@ const ThankYou = ({ baseUrl }) => {
     console.log(data);
   }
 
+  
+  function showCard(imgSrc) {
+    setOpenPreviewCardModal(true);
+    setImgSrc(imgSrc);
+  }
+
   function navigateToCardDeliveryDetails(imgsrc) {
     localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
     navigate("/card-delivery-details");

@@ -8,6 +8,7 @@ const Maternity = ({baseUrl}) => {
   const navigate = useNavigate();
   const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
   const [gift_card, setGift_card] = useState([])
+  const [imgSrc, setImgSrc] = useState("");
  
   //
   const sidebar = useRef();
@@ -17,7 +18,7 @@ const Maternity = ({baseUrl}) => {
 
 
   async function fetchCards() {
-    const response = await fetch(`${baseUrl}/fetch-cards-category/Getwellsoon`);
+    const response = await fetch(`${baseUrl}/fetch-cards-category/Maternity`);
     const data = await response.json();
     setGift_card(data.data);
     console.log(data);
@@ -30,6 +31,18 @@ const Maternity = ({baseUrl}) => {
     // }
     fetchCards()
   }, []);
+
+    //
+    function showCard(imgSrc) {
+      setOpenPreviewCardModal(true);
+      setImgSrc(imgSrc);
+    }
+    
+      
+    function navigateToCardDeliveryDetails(imgsrc) {
+      localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+      navigate("/card-delivery-details");
+    }
 
   return (
     <div className="upload-card-cover">
@@ -97,7 +110,7 @@ const Maternity = ({baseUrl}) => {
             className="ri-close-fill"
             onClick={() => setOpenPreviewCardModal(false)}
           ></i>
-          <img src={deliver_details_image} alt="" />
+          <img src={imgSrc} alt="" width="15%" />
         </div>
       )}
     </div>

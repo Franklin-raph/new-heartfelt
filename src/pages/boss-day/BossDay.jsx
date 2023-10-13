@@ -39,6 +39,11 @@ const BossDay = ({ baseUrl }) => {
     setImgSrc(imgSrc);
   }
 
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
+  }
+
   //
   return (
     <div className="upload-card-cover">

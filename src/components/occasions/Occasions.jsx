@@ -31,6 +31,11 @@ const Occasions = () => {
           <li onClick={() => navigate("/upload-card-cover-relationship")}>
             Relationship
           </li>
+          <li onClick={()=> navigate("/upload-card-cover-birthday")}>Birthday</li>
+          <li onClick={()=> navigate("/upload-card-cover-annivasary")}>Annivasary</li>
+          <li onClick={()=> navigate("/upload-card-cover-sympathy")}>Sympathy</li>
+          <li onClick={()=> navigate("/upload-card-cover-love")}>Love</li>
+          <li onClick={()=> navigate("/upload-card-cover-relationship")}>Relationship</li>
         </ul>
         <button className="occasions" onClick={() => navigate("/try-demo")}>
           Try Demo

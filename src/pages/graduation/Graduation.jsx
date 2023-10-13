@@ -36,6 +36,11 @@ const Graduation = ({ baseUrl }) => {
     setOpenPreviewCardModal(true);
     setImgSrc(imgSrc);
   }
+  
+  function navigateToCardDeliveryDetails(imgsrc) {
+    localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+    navigate("/card-delivery-details");
+  }
 
   //
   return (
@@ -64,10 +69,6 @@ const Graduation = ({ baseUrl }) => {
                 <i className="bx bx-upload"></i>
                 <h4>Upload card cover</h4>
                 <p>max 30mb</p>
-              </div>
-              <div className="gift_card_segment_card_context">
-                <h5> Happy Birthday </h5>
-                <p>Birthday</p>
               </div>
             </div>
             {gift_card.length < 1 ? (

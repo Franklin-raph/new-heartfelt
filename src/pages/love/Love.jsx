@@ -8,6 +8,7 @@ const Love = ({baseUrl}) => {
     const navigate = useNavigate();
     const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
     const [gift_card, setGift_card] = useState([])
+    const [imgSrc, setImgSrc] = useState("");
     //
     // const user = JSON.parse(localStorage.getItem("user_info"));
     useEffect(() => {
@@ -27,6 +28,16 @@ const Love = ({baseUrl}) => {
       const data = await response.json();
       setGift_card(data.data);
       console.log(data);
+    }
+
+    function showCard(imgSrc) {
+      setOpenPreviewCardModal(true);
+      setImgSrc(imgSrc);
+    }
+    
+    function navigateToCardDeliveryDetails(imgsrc) {
+      localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+      navigate("/card-delivery-details");
     }
   
     return (
@@ -85,7 +96,7 @@ const Love = ({baseUrl}) => {
               className="ri-close-fill"
               onClick={() => setOpenPreviewCardModal(false)}
             ></i>
-            <img src={deliver_details_image} alt="" />
+            <img src={imgSrc} alt="" width="15%" />
           </div>
         )}
       </div>

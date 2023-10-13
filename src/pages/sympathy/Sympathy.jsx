@@ -8,6 +8,7 @@ const Sympathy = ({baseUrl}) => {
     const navigate = useNavigate();
     const [openPreviewCardModal, setOpenPreviewCardModal] = useState(false);
     const [gift_card, setGift_card] = useState([])
+    const [imgSrc, setImgSrc] = useState("");
 
     async function fetchCards() {
       const response = await fetch(`${baseUrl}/fetch-cards-category/Sympathy`);
@@ -28,6 +29,17 @@ const Sympathy = ({baseUrl}) => {
     const openSidebar = () => {
       sidebar.current.classList.toggle("open_sidebar");
     };
+
+    function showCard(imgSrc) {
+      setOpenPreviewCardModal(true);
+      setImgSrc(imgSrc);
+    }
+  
+  
+    function navigateToCardDeliveryDetails(imgsrc) {
+      localStorage.setItem("uploaded-card", JSON.stringify(imgsrc));
+      navigate("/card-delivery-details");
+    }
   
     return (
       <div className="upload-card-cover">
@@ -76,13 +88,13 @@ const Sympathy = ({baseUrl}) => {
           </div>
         </section>
         {openPreviewCardModal && (
-          <div className="previewCardModal flex-center">
-            <i
-              className="ri-close-fill"
-              onClick={() => setOpenPreviewCardModal(false)}
-            ></i>
-            <img src={deliver_details_image} alt="" />
-          </div>
+        <div className="previewCardModal flex-center">
+          <i
+            className="ri-close-fill"
+            onClick={() => setOpenPreviewCardModal(false)}
+          ></i>
+          <img src={imgSrc} alt="" width="15%" />
+        </div>
         )}
       </div>
     );
