@@ -69,7 +69,7 @@ import MyTeams from "./pages/my-team/MyTeams";
 import LogoSettings from "./pages/logo-settings/LogoSettings";
 
 function App() {
-  const baseUrl = "https://heartfelt-new.vercel.app";
+  const baseUrl = "https://heartfelt-new-caesydev.vercel.app";
   return (
     <BrowserRouter>
       <GetToTopOnRender />
@@ -104,7 +104,7 @@ function App() {
           element={<UserDashboard baseUrl={baseUrl} />}
         />
         <Route path="/user-dashboard-signed-cards" element={<SignedCards baseUrl={baseUrl}/>} />
-        <Route path="/account-personal-info" element={<AccountInfo />} />
+        <Route path="/account-personal-info" element={<AccountInfo baseUrl={baseUrl}/>} />
         <Route
           path="/account-change-password"
           element={<AccountChangePassword baseUrl={baseUrl}/>}

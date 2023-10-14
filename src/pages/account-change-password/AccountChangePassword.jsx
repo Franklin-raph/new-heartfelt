@@ -11,6 +11,7 @@ const AccountChangePassword = ({baseUrl}) => {
   const [oldPwd, setOldPwd] = useState("")
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [loader, setLoader] = useState(false);
   //
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
@@ -25,6 +26,7 @@ const AccountChangePassword = ({baseUrl}) => {
   };
 
   async function updatePassword(e){
+    setLoader(true);
     console.log(user.accessToken, JSON.stringify({oldPwd, newPwd}))
     e.preventDefault()
     const response = await fetch(`${baseUrl}/update-user-password`,{
@@ -36,12 +38,15 @@ const AccountChangePassword = ({baseUrl}) => {
       },
     })
     const data = await response.json()
+    if(response) setLoader(false);
     if(!response.ok){
       setError(data.message)
     }
 
     if(response.ok){
       setSuccess(data.message)
+      setNewPwd("********")
+      setOldPwd("********")
     }
     console.log(data, response)
   }
@@ -69,6 +74,7 @@ const AccountChangePassword = ({baseUrl}) => {
               type="text"
               id="first_name"
               onChange={e => setOldPwd(e.target.value)}
+              value={oldPwd}
             />
           </div>
           <div className="account_info_input_div">
@@ -78,9 +84,16 @@ const AccountChangePassword = ({baseUrl}) => {
               type="text"
               id="last_name"
               onChange={e => setNewPwd(e.target.value)}
+              value={newPwd}
             />
           </div>
-          <button className="save_password_change_btn" onClick={updatePassword}>Save</button>
+          {!loader ? (
+              <button className="save_password_change_btn" onClick={updatePassword}>Save</button>
+            ) : (
+              <button className="save_password_change_btn">
+                <i className="fa-solid fa-spinner fa-spin"></i>
+              </button>
+          )}
         </form>
       </div>
       {error && <ErrorAlert error={error} setError={setError}/> }

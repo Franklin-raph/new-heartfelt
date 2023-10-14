@@ -4948,3 +4948,14 @@ nav input {
 .card_flip_books_page_nums {
   cursor: pointer;
 }
+
+.delete-button{
+  background-color: rgb(255, 72, 72);
+  margin-top: 1.5rem;
+  margin-right: 10px;
+  color: #fff;
+}
+
+.cancel-button{
+  background-color: rgb(203, 203, 203);
+}

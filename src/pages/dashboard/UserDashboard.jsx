@@ -6,6 +6,9 @@ import cardImgPreview from "../../assets/images/card_preview_template.jpg";
 const UserDashboard = ({baseUrl}) => {
   const navigate = useNavigate();
   const [allMyCardTemplates, setAllMyCardTemplates] = useState()
+  const [deleteCardModal, setDeleteCardModal] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
   //
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
@@ -42,6 +45,31 @@ const UserDashboard = ({baseUrl}) => {
 
   function navigateToCardSettings(){
     
+  }
+
+  function confirmCardDelete(id){
+    const cardToDelete = allMyCardTemplates.find(cardTemplate => cardTemplate.id === id)
+    setDeleteCardModal(cardToDelete)
+    // /delete-card/:cardID
+  }
+
+  async function handleDeleteCard(id){
+    console.log(id)
+    const response = await fetch(`${baseUrl}/delete-card/${id}`,{
+      method:"DELETE",
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+      
+    })
+    const data = await response.json()
+    console.log(data)
+    if(response.ok){
+      // setSuccess(data.data)
+    }
+    if(!response.ok){
+      setError(data.error)
+    }
   }
 
   //
@@ -96,16 +124,23 @@ const UserDashboard = ({baseUrl}) => {
                   <p className="card_preview_Entries">{cardTemplate.signatureCount}</p>
                   <p className="card_preview_status">{cardTemplate.date}</p>
                   <p className="card_preview_status" onClick={() => navigateToCardSettings(cardTemplate.status)} ><i class="ri-settings-3-line"></i></p>
-                  <p className="card_preview_status"><i class="ri-delete-bin-fill"  style={{ fontSize:"18px", color:"red", padding:"5px" }}></i></p>
-                  {/* <div className="update_card_preview_icons">
-                    <i className="bx bx-link"></i>
-                    <i className="bx bx-dots-horizontal-rounded"></i>
-                  </div> */}
+                  <p className="card_preview_status"><i class="ri-delete-bin-fill" onClick={() => confirmCardDelete(cardTemplate.id)} style={{ fontSize:"18px", color:"red", padding:"5px" }}></i></p>
                 </div>
               </div>
           ))
           }
-          
+          {deleteCardModal && 
+            <div className="errorModalBg">
+              {/* {} */}
+              <div className="failureModal">
+                <p>Are you sure sure you want to delete this card</p>
+                <div>
+                  <button className="delete-button" onClick={() => handleDeleteCard(deleteCardModal.id)}>Delete</button>
+                  <button className="cancel-button" onClick={() => setDeleteCardModal(false)}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          }
         </div>
       </div>
     </section>
