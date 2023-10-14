@@ -18,7 +18,22 @@ const AccountInfo = ({baseUrl}) => {
     if (!user) {
       // navigate("/");
     }
+    getUserInfo()
   }, []);
+
+  async function getUserInfo(){
+    const response = await fetch(`${baseUrl}/dashboard`,{
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    })
+    const data = await response.json()
+    console.log(data)
+    if(response.ok){
+      setNewName(data.name)
+      setNewCountry(data.country)
+    }
+  }
   //
   const sidebar = useRef();
   const openSidebar = () => {

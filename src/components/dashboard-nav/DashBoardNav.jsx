@@ -15,7 +15,7 @@ const DashBoardNav = ({ sidebar, openSidebar }) => {
       <div className="sidebar_header g-1">
         <h4>{user && user.user.email.charAt(0)}</h4>
         <div className="sidebar_header_text">
-          <h5>{user && user.user.email}</h5>
+          {/* <h5>{user && user.user.email}</h5> */}
           <p style={{ fontSize: "13px" }}>Welcome</p>
         </div>
       </div>

@@ -9,6 +9,7 @@ const UserDashboard = ({baseUrl}) => {
   const [deleteCardModal, setDeleteCardModal] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+  const [loader, setLoader] = useState(false)
   //
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
@@ -60,7 +61,7 @@ const UserDashboard = ({baseUrl}) => {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
-      
+
     })
     const data = await response.json()
     console.log(data)
@@ -135,7 +136,13 @@ const UserDashboard = ({baseUrl}) => {
               <div className="failureModal">
                 <p>Are you sure sure you want to delete this card</p>
                 <div>
-                  <button className="delete-button" onClick={() => handleDeleteCard(deleteCardModal.id)}>Delete</button>
+                {!loader ? (
+                      <button className="delete-button" onClick={() => handleDeleteCard(deleteCardModal.id)}>Delete</button>
+                    ) : (
+                      <button className="save_password_change_btn">
+                        <i className="fa-solid fa-spinner fa-spin"></i>
+                      </button>
+                  )}
                   <button className="cancel-button" onClick={() => setDeleteCardModal(false)}>Cancel</button>
                 </div>
               </div>
