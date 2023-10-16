@@ -55,13 +55,13 @@ const UserDashboard = ({baseUrl}) => {
   }
 
   async function handleDeleteCard(id){
-    console.log(id)
-    const response = await fetch(`${baseUrl}/delete-card/${id}`,{
-      method:"DELETE",
+    console.log(JSON.stringify({cardID:id}))
+    const response = await fetch(`${baseUrl}/delete-card`,{
+      method:"POST",
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
-
+      body: JSON.stringify({cardID:id})
     })
     const data = await response.json()
     console.log(data)

@@ -73,12 +73,12 @@ function App() {
   return (
     <BrowserRouter>
       <GetToTopOnRender />
-      <Navbar />
+      <Navbar baseUrl={baseUrl}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/try-demo" element={<TryDemo />} />
+        <Route path="/try-demo" element={<TryDemo baseUrl={baseUrl}/>} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
@@ -113,11 +113,11 @@ function App() {
           path="/account-delete-account"
           element={<AccountDeletAccount />}
         />
-        <Route path="/tax-exemption" element={<TaxExemption />} />
-        <Route path="/notifications" element={<NotificationToggles />} />
-        <Route path="/annual-plan" element={<AnnualPlans />} />
-        <Route path="/annual-plan-my-team" element={<MyTeams />} />
-        <Route path="/annual-plan-logo-settings" element={<LogoSettings />} />
+        <Route path="/tax-exemption" element={<TaxExemption baseUrl={baseUrl}/>} />
+        <Route path="/notifications" element={<NotificationToggles baseUrl={baseUrl}/>} />
+        <Route path="/annual-plan" element={<AnnualPlans baseUrl={baseUrl}/>} />
+        <Route path="/annual-plan-my-team" element={<MyTeams baseUrl={baseUrl}/>} />
+        <Route path="/annual-plan-logo-settings" element={<LogoSettings baseUrl={baseUrl}/>} />
         <Route path="/account-custom-name" element={<AccountCustomName baseUrl={baseUrl}/>} />
         <Route path="/upload-card" element={<UploadCard baseUrl={baseUrl} />} />
         <Route path="/saved-card" element={<SavedCards baseUrl={baseUrl} />} />

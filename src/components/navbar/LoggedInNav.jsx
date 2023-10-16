@@ -3,7 +3,7 @@ import heartFeltLogo from "../../assets/images/heartfelt logo 2.png";
 import heartFeltMobileLogo from "../../assets/images/heartfelt logo 3.png";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoggedInNav = () => {
+const LoggedInNav = ({baseUrl}) => {
   const navigate = useNavigate();
   const [userInfoModal, setUserInfoModal] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -69,7 +69,7 @@ const LoggedInNav = () => {
   };
 
 async function checkTokenStatus(){
-    const response = await fetch(`https://heartfelt-new.vercel.app/verify-token/`,{
+    const response = await fetch(`https://heartfelt-new-caesydev.vercel.app/verify-token/`,{
       method:"POST",
       headers:{
         Authorization: `Bearer ${user.accessToken}`
