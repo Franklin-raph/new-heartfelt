@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const NotificationToggles = ({baseUrl}) => {
   const navigate = useNavigate();
-  // const cardSentNotificationToggle = useRef();
   const[cardSentNotificationToggleState, setCardSentNotificationToggleState] = useState()
   const[cardOpenedNotificationToggleState, setCardOpenedNotificationToggleState] = useState()
   const[specialPromotionsToggleState, setSpecialPromotionsToggleState] = useState()
@@ -207,95 +206,3 @@ const NotificationToggles = ({baseUrl}) => {
 };
 
 export default NotificationToggles;
-
-//
-//SPECIAL PROMOTIONS
-//
-//
-// export const SpecialPromotionsNotification = () => {
-//   const cardSentNotificationToggle = useRef();
-
-//   //
-//   const handleToggleCardSentNotification = () => {
-//     cardSentNotificationToggle.current.classList.toggle("toggle_notification");
-//   };
-
-//   //
-//   return (
-//     <div className="card_sent_notification">
-//       <div className="card_notification_context">
-//         <h4>Special Promotions</h4>
-//         <p>Be notified when they are special promotions and discounts</p>
-//       </div>
-//       <div
-//         className="card_sent_notification_toggle toggle_notification"
-//         onClick={handleToggleCardSentNotification}
-//         ref={cardSentNotificationToggle}
-//       >
-//         <div></div>
-//       </div>
-//     </div>
-//   );
-// };
-
-//
-//
-//NEW FEATURES
-//
-//
-// export const NewFeaturesNotification = () => {
-//   const cardSentNotificationToggle = useRef();
-
-//   //
-//   const handleToggleCardSentNotification = () => {
-//     cardSentNotificationToggle.current.classList.toggle("toggle_notification");
-//   };
-
-//   //
-//   return (
-//     <div className="card_sent_notification">
-//       <div className="card_notification_context">
-//         <h4>New Features</h4>
-//         <p>Be the first to hear about new features</p>
-//       </div>
-//       <div
-//         className="card_sent_notification_toggle toggle_notification"
-//         onClick={handleToggleCardSentNotification}
-//         ref={cardSentNotificationToggle}
-//       >
-//         <div></div>
-//       </div>
-//     </div>
-//   );
-// };
-
-//
-//
-//SYSTEM UPDATES
-//
-//
-// export const SystemUpdatesNotification = () => {
-//   const cardSentNotificationToggle = useRef();
-
-//   //
-//   const handleToggleCardSentNotification = () => {
-//     cardSentNotificationToggle.current.classList.toggle("toggle_notification");
-//   };
-
-//   //
-//   return (
-//     <div className="card_sent_notification">
-//       <div className="card_notification_context">
-//         <h4>System Updates</h4>
-//         <p>Be notified when they are important updates.</p>
-//       </div>
-//       <div
-//         className="card_sent_notification_toggle"
-//         onClick={handleToggleCardSentNotification}
-//         ref={cardSentNotificationToggle}
-//       >
-//         <div></div>
-//       </div>
-//     </div>
-//   );
-// };
