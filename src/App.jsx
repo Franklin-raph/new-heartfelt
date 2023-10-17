@@ -68,18 +68,19 @@ import AnnualPlans from "./pages/annual-plans/AnnualPlans";
 import MyTeams from "./pages/my-team/MyTeams";
 import LogoSettings from "./pages/logo-settings/LogoSettings";
 import CardSettings from "./pages/cardSettings/CardSettings";
+import Gifs from "./components/gifs/Gifs";
 
 function App() {
   const baseUrl = "https://heartfelt-new-caesydev.vercel.app";
   return (
     <BrowserRouter>
       <GetToTopOnRender />
-      <Navbar baseUrl={baseUrl}/>
+      <Navbar baseUrl={baseUrl} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/try-demo" element={<TryDemo baseUrl={baseUrl}/>} />
+        <Route path="/try-demo" element={<TryDemo baseUrl={baseUrl} />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
@@ -104,25 +105,52 @@ function App() {
           path="/user-dashboard"
           element={<UserDashboard baseUrl={baseUrl} />}
         />
-        <Route path="/user-dashboard-signed-cards" element={<SignedCards baseUrl={baseUrl}/>} />
-        <Route path="/account-personal-info" element={<AccountInfo baseUrl={baseUrl}/>} />
+        <Route
+          path="/user-dashboard-signed-cards"
+          element={<SignedCards baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/account-personal-info"
+          element={<AccountInfo baseUrl={baseUrl} />}
+        />
         <Route
           path="/account-change-password"
-          element={<AccountChangePassword baseUrl={baseUrl}/>}
+          element={<AccountChangePassword baseUrl={baseUrl} />}
         />
         <Route
           path="/account-delete-account"
           element={<AccountDeletAccount />}
         />
-        <Route path="/tax-exemption" element={<TaxExemption baseUrl={baseUrl}/>} />
-        <Route path="/notifications" element={<NotificationToggles baseUrl={baseUrl}/>} />
-        <Route path="/annual-plan" element={<AnnualPlans baseUrl={baseUrl}/>} />
-        <Route path="/annual-plan-my-team" element={<MyTeams baseUrl={baseUrl}/>} />
-        <Route path="/annual-plan-logo-settings" element={<LogoSettings baseUrl={baseUrl}/>} />
-        <Route path="/account-custom-name" element={<AccountCustomName baseUrl={baseUrl}/>} />
+        <Route
+          path="/tax-exemption"
+          element={<TaxExemption baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/notifications"
+          element={<NotificationToggles baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/annual-plan"
+          element={<AnnualPlans baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/annual-plan-my-team"
+          element={<MyTeams baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/annual-plan-logo-settings"
+          element={<LogoSettings baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/account-custom-name"
+          element={<AccountCustomName baseUrl={baseUrl} />}
+        />
         <Route path="/upload-card" element={<UploadCard baseUrl={baseUrl} />} />
         <Route path="/saved-card" element={<SavedCards baseUrl={baseUrl} />} />
-        <Route path="/card-settings/:cardStatus/:id" element={<CardSettings baseUrl={baseUrl} />} />
+        <Route
+          path="/card-settings/:cardStatus/:id"
+          element={<CardSettings baseUrl={baseUrl} />}
+        />
         <Route
           path="/card-delivery-details"
           element={<DeliveryDetails baseUrl={baseUrl} />}
@@ -144,61 +172,109 @@ function App() {
           path="/preview-uploaded-card"
           element={<PreviewUploadedCard baseUrl={baseUrl} />}
         />
-        <Route path="/upload-card-cover-love" element={<Love baseUrl={baseUrl}/>} />
+        <Route
+          path="/upload-card-cover-love"
+          element={<Love baseUrl={baseUrl} />}
+        />
         <Route
           path="/upload-card-cover-relationship"
-          element={<Relationship baseUrl={baseUrl}/>}
+          element={<Relationship baseUrl={baseUrl} />}
         />
-        <Route path="/upload-card-cover-sympathy" element={<Sympathy baseUrl={baseUrl}/>} />
+        <Route
+          path="/upload-card-cover-sympathy"
+          element={<Sympathy baseUrl={baseUrl} />}
+        />
         <Route
           path="/upload-card-cover-annivasary"
           element={<Annivasary baseUrl={baseUrl} />}
         />
-        <Route path="/upload-card-cover-farewell" element={<Farewell baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-thank-you" element={<ThankYou baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-congrats" element={<Congrats baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-wedding" element={<Wedding baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-retirement" element={<Retirement baseUrl={baseUrl}/>} />
+        <Route
+          path="/upload-card-cover-farewell"
+          element={<Farewell baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-thank-you"
+          element={<ThankYou baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-congrats"
+          element={<Congrats baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-wedding"
+          element={<Wedding baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-retirement"
+          element={<Retirement baseUrl={baseUrl} />}
+        />
         <Route
           path="/upload-card-cover-get-well-soon"
-          element={<GetWellSoon baseUrl={baseUrl}/>}
+          element={<GetWellSoon baseUrl={baseUrl} />}
         />
-        <Route path="/upload-card-cover-promotion" element={<Promotion baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-graduation" element={<Graduation baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-maternity" element={<Maternity baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-new-home" element={<NewHome baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-christmas" element={<Christmas baseUrl={baseUrl}/>} />
+        <Route
+          path="/upload-card-cover-promotion"
+          element={<Promotion baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-graduation"
+          element={<Graduation baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-maternity"
+          element={<Maternity baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-new-home"
+          element={<NewHome baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-christmas"
+          element={<Christmas baseUrl={baseUrl} />}
+        />
         <Route
           path="/upload-card-cover-thanksgiving"
-          element={<ThanksGiving baseUrl={baseUrl}/>}
+          element={<ThanksGiving baseUrl={baseUrl} />}
         />
         <Route
           path="/upload-card-cover-condolences"
-          element={<Condolences baseUrl={baseUrl}/>}
+          element={<Condolences baseUrl={baseUrl} />}
         />
         <Route
           path="/upload-card-cover-just-because"
-          element={<JustBecause baseUrl={baseUrl}/>}
+          element={<JustBecause baseUrl={baseUrl} />}
         />
         <Route
           path="/upload-card-cover-save-the-date"
-          element={<SaveTheDate baseUrl={baseUrl}/>}
+          element={<SaveTheDate baseUrl={baseUrl} />}
         />
         <Route
           path="/upload-card-cover-work-anniversary"
-          element={<WorkAnniversary baseUrl={baseUrl}/>}
+          element={<WorkAnniversary baseUrl={baseUrl} />}
         />
-        <Route path="/upload-card-cover-halloween" element={<Halloween baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-new-year" element={<NewYear baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-admin-day" element={<AdminDay baseUrl={baseUrl}/>} />
-        <Route path="/upload-card-cover-boss-day" element={<BossDay baseUrl={baseUrl}/>} />
+        <Route
+          path="/upload-card-cover-halloween"
+          element={<Halloween baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-new-year"
+          element={<NewYear baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-admin-day"
+          element={<AdminDay baseUrl={baseUrl} />}
+        />
+        <Route
+          path="/upload-card-cover-boss-day"
+          element={<BossDay baseUrl={baseUrl} />}
+        />
         <Route
           path="/upload-card-cover-welcome-cards"
-          element={<WelcomeCards baseUrl={baseUrl}/>}
+          element={<WelcomeCards baseUrl={baseUrl} />}
         />
         <Route
           path="/upload-card-cover-baby-birth-announcement"
-          element={<BabyBirhAnnouncement baseUrl={baseUrl}/>}
+          element={<BabyBirhAnnouncement baseUrl={baseUrl} />}
         />
 
         {/* End of Upload Card Cover Pages */}
