@@ -67,6 +67,7 @@ import SignedCards from "./pages/signed-cards/SignedCards";
 import AnnualPlans from "./pages/annual-plans/AnnualPlans";
 import MyTeams from "./pages/my-team/MyTeams";
 import LogoSettings from "./pages/logo-settings/LogoSettings";
+import CardSettings from "./pages/cardSettings/CardSettings";
 
 function App() {
   const baseUrl = "https://heartfelt-new-caesydev.vercel.app";
@@ -121,6 +122,7 @@ function App() {
         <Route path="/account-custom-name" element={<AccountCustomName baseUrl={baseUrl}/>} />
         <Route path="/upload-card" element={<UploadCard baseUrl={baseUrl} />} />
         <Route path="/saved-card" element={<SavedCards baseUrl={baseUrl} />} />
+        <Route path="/card-settings/:cardStatus/:id" element={<CardSettings baseUrl={baseUrl} />} />
         <Route
           path="/card-delivery-details"
           element={<DeliveryDetails baseUrl={baseUrl} />}

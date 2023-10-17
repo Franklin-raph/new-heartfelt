@@ -44,8 +44,9 @@ const UserDashboard = ({baseUrl}) => {
     console.log(response, data)
   }
 
-  function navigateToCardSettings(){
-    
+  function navigateToCardSettings(cardStatus, cardId){
+    navigate(`/card-settings/${cardStatus}/${cardId}`)
+    console.log(cardStatus,cardId)
   }
 
   function confirmCardDelete(id){
@@ -56,12 +57,11 @@ const UserDashboard = ({baseUrl}) => {
 
   async function handleDeleteCard(id){
     console.log(JSON.stringify({cardID:id}))
-    const response = await fetch(`${baseUrl}/delete-card`,{
-      method:"POST",
+    const response = await fetch(`${baseUrl}/delete-card/${id}`,{
+      method:"DELETE",
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
-      },
-      body: JSON.stringify({cardID:id})
+      }
     })
     const data = await response.json()
     console.log(data)
@@ -124,7 +124,7 @@ const UserDashboard = ({baseUrl}) => {
                   <p className="card_preview_recipient">{cardTemplate.recipientFullName}</p>
                   <p className="card_preview_Entries">{cardTemplate.signatureCount}</p>
                   <p className="card_preview_status">{cardTemplate.date}</p>
-                  <p className="card_preview_status" onClick={() => navigateToCardSettings(cardTemplate.status)} ><i class="ri-settings-3-line"></i></p>
+                  <p className="card_preview_status" onClick={() => navigateToCardSettings(cardTemplate.status, cardTemplate.id)} ><i class="ri-settings-3-line"></i></p>
                   <p className="card_preview_status"><i class="ri-delete-bin-fill" onClick={() => confirmCardDelete(cardTemplate.id)} style={{ fontSize:"18px", color:"red", padding:"5px" }}></i></p>
                 </div>
               </div>

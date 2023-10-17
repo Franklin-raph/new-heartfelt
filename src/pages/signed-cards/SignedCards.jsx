@@ -75,7 +75,6 @@ const SignedCards = ({baseUrl}) => {
             <h4>Entries</h4>
             <h4>Delivery</h4>
             <h4>Settings</h4>
-            <h4>More</h4>
           </div>
           {allMySignedCardTemplates && allMySignedCardTemplates.length === 0 && <p style={{ fontSize:"1.4rem", textAlign:"center", marginTop:"5rem" }}>You have no signed cards yet</p>}
           {allMySignedCardTemplates && 
@@ -89,7 +88,6 @@ const SignedCards = ({baseUrl}) => {
                   <p className="card_preview_Entries">{cardTemplate.signatureCount}</p>
                   <p className="card_preview_status">{cardTemplate.date}</p>
                   <p className="card_preview_status" onClick={() => navigateToCardSettings(cardTemplate.status)} ><i class="ri-settings-3-line"></i></p>
-                  <p className="card_preview_status"><i class="ri-delete-bin-fill"  style={{ fontSize:"18px", color:"red", padding:"5px" }}></i></p>
                   {/* <div className="update_card_preview_icons">
                     <i className="bx bx-link"></i>
                     <i className="bx bx-dots-horizontal-rounded"></i>

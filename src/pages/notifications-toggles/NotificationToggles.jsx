@@ -25,6 +25,7 @@ const NotificationToggles = ({baseUrl}) => {
       },
     })
     const data = await response.json()
+    console.log(data)
     if(response.ok){
       setCardSentNotificationToggleState(data.settings.cardSent)
       setCardOpenedNotificationToggleState(data.settings.cardOpened)
@@ -34,7 +35,6 @@ const NotificationToggles = ({baseUrl}) => {
     }
     console.log(data.settings)
   }
-  console.log(cardSentNotificationToggleState)
   //
   const sidebar = useRef();
   const openSidebar = () => {
@@ -42,9 +42,9 @@ const NotificationToggles = ({baseUrl}) => {
   };
 
     const handleToggleCardSettingsNotification = async (cardSetting, cardSentNotificationToggleState) => {
-      console.log({setting:cardSetting, value:cardSentNotificationToggleState})
+      console.log(JSON.stringify({setting:cardSetting, value:cardSentNotificationToggleState}))
       const response = await fetch(`${baseUrl}/update-user-notification-service`,{
-        method:"PATCH",
+        method:"POST",
         headers: {
           Authorization: `Bearer ${user.accessToken}`
         },
