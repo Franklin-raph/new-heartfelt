@@ -17,12 +17,19 @@ import ErrorAlert from "../../components/alert/ErrorAlert";
 import { useDrag } from "@use-gesture/react";
 import Draggable from "react-draggable";
 import { AudioRecorder } from "react-audio-voice-recorder";
+import Gifs from "../../components/gifs/Gifs";
+
 //
 
 const SingleCardView = ({ baseUrl }) => {
   const [isGiftCardSettingsOpen, setIsGiftCardSettingsOpen] = useState(false);
   const [isHowGiftCardWorksOpen, setIsHowGiftCardWorksOpen] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
+  const [showGif, setShowGif] = useState(false);
+
+  const closeGif = () => {
+    setShowGif(false);
+  };
 
   //
   const [addAudio, setAddAudio] = useState(false);
@@ -218,18 +225,20 @@ const SingleCardView = ({ baseUrl }) => {
   const card_page_num_2 = useRef();
   const card_page_num_3 = useRef();
 
-  const [cardDate, setCardDate] = useState()
+  const [cardDate, setCardDate] = useState();
   async function getCardInfo() {
     const response = await fetch(`${baseUrl}/get-card-sign-details/${cardId}`);
     const data = await response.json();
     setSignedCardSignatures(data.signatures);
     setSignedCardDetails(data.details);
-    setCardDate(data.details.date)
+    setCardDate(data.details.date);
     console.log(data);
   }
 
   const targetDate = new Date(cardDate);
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(targetDate));
+  const [timeRemaining, setTimeRemaining] = useState(
+    calculateTimeRemaining(targetDate)
+  );
 
   function calculateTimeRemaining(targetDate) {
     const currentDate = new Date();
@@ -250,10 +259,12 @@ const SingleCardView = ({ baseUrl }) => {
     return () => {
       clearInterval(timer);
     };
-  },[targetDate])
+  }, [targetDate]);
 
   const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const hours = Math.floor(
+    (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
   const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
@@ -279,9 +290,6 @@ const SingleCardView = ({ baseUrl }) => {
         throw new Error("State not found");
     }
     getCardInfo();
-
-
-
   }, [paperPage]);
 
   // ===========
@@ -341,29 +349,36 @@ const SingleCardView = ({ baseUrl }) => {
 
   return (
     <article className="single_card_view_section">
-
-
-
       {success && <SuccessAlert success={success} setSuccess={setSuccess} />}
       {error && <ErrorAlert error={error} setError={setError} />}
       <div className="single_card_page_header">
         <h2 className="single_card_header_h3">
           A card for {signedCardDetails && signedCardDetails.recipientFullName}
         </h2>
+        <div className="react_giphy_wrapper">
+          {/* <ReactGiphySearchbox
+            apiKey="9Ixlv3DWC1biJRI57RanyL7RTbfzz0o7"
+            onSelect={(item) => console.log(item)}
+            masonryConfig={[
+              { columns: 2, imageWidth: 110, gutter: 5 },
+              { mq: "700px", columns: 3, imageWidth: 120, gutter: 5 },
+            ]}
+          /> */}
+        </div>
         <div className="single_card_countdown_row">
-          <p>
-          {signedCardDetails && 
-            <>
-            {timeRemaining <= 0 ? (
-                <p>0Days 0Hours 0Minutes 0Seconds</p>
-              ) : (
-                <p>
-                  {days}d {hours}h {minutes}m {seconds}s
-                </p>
-              )}
-            </>
-          }
-          </p>
+          <div>
+            {signedCardDetails && (
+              <>
+                {timeRemaining <= 0 ? (
+                  <p>0Days 0Hours 0Minutes 0Seconds</p>
+                ) : (
+                  <p>
+                    {days}d {hours}h {minutes}m {seconds}s
+                  </p>
+                )}
+              </>
+            )}
+          </div>
           {/* <div className="single_card_countdown_col">
             <h4>DAYS</h4>
             <div>
@@ -424,6 +439,9 @@ const SingleCardView = ({ baseUrl }) => {
             {signedCardDetails && (
               <img src={signedCardDetails.cardCoverUrl} alt="card cover" />
             )}
+          </div>
+          <div className="GigHolder">
+            {showGif && <Gifs closeGif={closeGif} />}
           </div>
           <div className="card_flip_paper card_flip_paper_2 " ref={paper_2}>
             {addAudio && (
@@ -635,22 +653,21 @@ const SingleCardView = ({ baseUrl }) => {
                 </div>
               )}
 
-              {signedCardDetails &&
-                signedCardDetails.addMedia === true && (
-                  <>
-                    {paperPage > 1 ? (
-                      <div>
-                        <i className="bx bxs-videos"></i>
-                        <p>Add Video</p>
-                      </div>
-                    ) : (
-                      <div style={{ cursor: "not-allowed", opacity: "0.5" }}>
-                        <i className="bx bxs-videos"></i>
-                        <p>Add Video</p>
-                      </div>
-                    )}
-                  </>
-                )}
+              {signedCardDetails && signedCardDetails.addMedia === true && (
+                <>
+                  {paperPage > 1 ? (
+                    <div>
+                      <i className="bx bxs-videos"></i>
+                      <p>Add Video</p>
+                    </div>
+                  ) : (
+                    <div style={{ cursor: "not-allowed", opacity: "0.5" }}>
+                      <i className="bx bxs-videos"></i>
+                      <p>Add Video</p>
+                    </div>
+                  )}
+                </>
+              )}
 
               {paperPage > 1 ? (
                 <div>
@@ -664,22 +681,21 @@ const SingleCardView = ({ baseUrl }) => {
                 </div>
               )}
 
-              {signedCardDetails &&
-                signedCardDetails.addMedia === true && (
-                  <>
-                    {paperPage > 1 ? (
-                      <div onClick={() => setAddAudio(!addAudio)}>
-                        <i className="bx bxs-microphone"></i>
-                        <p>Add Audio</p>
-                      </div>
-                    ) : (
-                      <div style={{ cursor: "not-allowed", opacity: "0.5" }}>
-                        <i className="bx bxs-microphone"></i>
-                        <p>Add Audio</p>
-                      </div>
-                    )}
-                  </>
-                )}
+              {signedCardDetails && signedCardDetails.addMedia === true && (
+                <>
+                  {paperPage > 1 ? (
+                    <div onClick={() => setAddAudio(!addAudio)}>
+                      <i className="bx bxs-microphone"></i>
+                      <p>Add Audio</p>
+                    </div>
+                  ) : (
+                    <div style={{ cursor: "not-allowed", opacity: "0.5" }}>
+                      <i className="bx bxs-microphone"></i>
+                      <p>Add Audio</p>
+                    </div>
+                  )}
+                </>
+              )}
               {/* {signedCardDetails &&
                 signedCardDetails.addAudioCheck === true && (
                   <>
@@ -698,7 +714,7 @@ const SingleCardView = ({ baseUrl }) => {
                 )} */}
 
               {paperPage > 1 ? (
-                <div>
+                <div onClick={() => setShowGif(true)}>
                   <i className="bx bx-smile"></i>
                   <p>Add GIF/Sticker</p>
                 </div>

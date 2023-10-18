@@ -3826,6 +3826,76 @@ nav input {
   width: 30%;
 }
 
+.gif_cont_wrapper {
+  position: relative;
+  width: 550px;
+  height: 500px;
+  margin: 0 auto;
+  overflow-y: auto;
+  box-shadow: 0.6px 2px 12px rgba(0, 0, 0, 0.327);
+  padding: 0 10px 5px 10px;
+  border-radius: 15px 15px 0 0;
+}
+
+.gif_cont_body {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-items: center;
+  gap: 1rem;
+  background: var(--generic-white);
+}
+
+.gif_holder {
+  width: 100%;
+  object-fit: cover;
+}
+
+.gif_holder img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.gif_cont_header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: var(--generic-white);
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 10px;
+  border-bottom: 1.3px solid rgba(0, 0, 0, 0.349);
+}
+
+.gif_cont_header form {
+  width: 100%;
+}
+
+.gif_cont_header form input {
+  padding: 16px 20px;
+  width: 100%;
+  border: 0;
+  outline: 0;
+}
+
+.gif_cont_header i {
+  font-size: 20px;
+}
+
+.gif_cont_header i:hover,
+.gif_cont_header i:active {
+  color: var(--minor-color-3);
+  cursor: pointer;
+}
+
+.GigHolder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999999;
+  /* box-shadow: 1px 8px 12px rgba(0, 0, 0, 0.327); */
+}
 /*  */
 /* ================ MEDIA QUERY ==================== */
 /* ===================================================== */
@@ -3879,6 +3949,19 @@ nav input {
 
   .upload-card-cover .header {
     margin: 3rem 0 3rem 4rem;
+  }
+}
+
+/* ========================================== */
+/* ========================================== */
+/* ========================================== */
+@media screen and (max-width: 1190px) {
+  .gif_cont_wrapper {
+    width: 450px;
+  }
+
+  .gif_cont_body {
+    grid-template-columns: repeat(3, auto);
   }
 }
 
@@ -4500,6 +4583,10 @@ nav input {
   .view_modal_input_controls {
     width: 100%;
   }
+
+  .gif_cont_wrapper {
+    width: 380px;
+  }
 }
 /* =========================================== */
 /* =========================================== */
@@ -4609,6 +4696,14 @@ nav input {
 
   .card_flip_book {
     height: 400px;
+  }
+
+  .gif_cont_wrapper {
+    width: 280px;
+  }
+
+  .gif_cont_body {
+    grid-template-columns: repeat(2, auto);
   }
 }
 
@@ -4814,6 +4909,14 @@ nav input {
   .editCardModal {
     width: 90%;
   }
+
+  .gif_cont_wrapper {
+    width: 240px;
+  }
+
+  .gif_cont_body {
+    grid-template-columns: repeat(2, auto);
+  }
 }
 
 /* ======================== */
@@ -4949,13 +5052,13 @@ nav input {
   cursor: pointer;
 }
 
-.delete-button{
+.delete-button {
   background-color: rgb(255, 72, 72);
   margin-top: 1.5rem;
   margin-right: 10px;
   color: #fff;
 }
 
-.cancel-button{
+.cancel-button {
   background-color: rgb(203, 203, 203);
 }
