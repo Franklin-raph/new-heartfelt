@@ -10,38 +10,14 @@ const Gifs = ({ closeGif }) => {
 
   //
   useEffect(() => {
-    const getTrendingGifs = async () => {
-      try {
-        const res = await fetch(
-          `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}`
-        );
-        const data = await res.json();
-        if (res) {
-          setLoading(false);
-        }
-        if (!res.ok) {
-          setLoading(false);
-        }
-        if (res.ok) {
-          setLoading(false);
-        }
-        setGifs(data.data);
-      } catch (err) {
-        console.log(err);
-        setLoading(false);
-      }
-    };
     getTrendingGifs();
   }, []);
 
-  //
-  const getGifs = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const getTrendingGifs = async () => {
     try {
-      const res =
-        await fetch(`https://api.giphy.com/v1/gifs/search?q=${gifWord}&api_key=${apiKey}
-`);
+      const res = await fetch(
+        `https://api.giphy.com/v1/gifs/trending?api_key=GRFtDf0bUGl9vont2DutEQmaCr7O5VRY`
+      );
       const data = await res.json();
       if (res) {
         setLoading(false);
@@ -53,6 +29,35 @@ const Gifs = ({ closeGif }) => {
         setLoading(false);
       }
       setGifs(data.data);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  //
+  const getGifs = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      if(gifWord === ""){
+        getTrendingGifs()
+      }else{
+        const res =
+          await fetch(`https://api.giphy.com/v1/gifs/search?q=${gifWord}&api_key=GRFtDf0bUGl9vont2DutEQmaCr7O5VRY`);
+        const data = await res.json();
+        if (res) {
+          setLoading(false);
+        }
+        if (!res.ok) {
+          setLoading(false);
+        }
+        if (res.ok) {
+          setLoading(false);
+        }
+        setGifs(data.data);
+      }
+
     } catch (err) {
       console.log(err);
       setLoading(false);

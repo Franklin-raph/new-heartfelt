@@ -766,7 +766,7 @@ const SingleCardView = ({ baseUrl }) => {
           <p
             ref={user_code}
             style={{ fontSize: "12px" }}
-          >{`https://heartfeltgreetingcard.netlify.app/single-card-view/${cardId}`}</p>
+          >{`https://new-heartfelt.vercel.app/single-card-view/${cardId}`}</p>
           <button onClick={handleCopyUserCode} ref={user_code_copy_btn}>
             Copy
           </button>

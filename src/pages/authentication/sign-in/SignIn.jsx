@@ -25,7 +25,6 @@ const SignIn = ({ baseUrl }) => {
   // on submit function
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log({ email, password });
     if (!email || !password) {
       setError("Please fill in all fields");
     } else {

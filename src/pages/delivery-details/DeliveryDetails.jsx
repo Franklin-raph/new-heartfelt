@@ -147,6 +147,10 @@ const DeliveryDetails = ({ baseUrl }) => {
         }),
       });
       const data = await response.json();
+      if(data.message === "Access token invalid"){
+        navigate('/sign-in')
+        localStorage.clear()
+      }
       console.log(data);
       if (response) setLoader(false);
       if (response.ok) {
