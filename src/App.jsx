@@ -80,7 +80,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/try-demo" element={<TryDemo baseUrl={baseUrl} />} />
+        <Route path="/try-demo/:id" element={<TryDemo baseUrl={baseUrl} />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />

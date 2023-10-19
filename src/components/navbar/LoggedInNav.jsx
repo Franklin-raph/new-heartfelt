@@ -3,11 +3,11 @@ import heartFeltLogo from "../../assets/images/heartfelt logo 2.png";
 import heartFeltMobileLogo from "../../assets/images/heartfelt logo 3.png";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoggedInNav = ({baseUrl}) => {
+const LoggedInNav = ({ baseUrl }) => {
   const navigate = useNavigate();
   const [userInfoModal, setUserInfoModal] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user)
+  console.log(user);
 
   //
   useEffect(() => {
@@ -54,33 +54,36 @@ const LoggedInNav = ({baseUrl}) => {
   };
 
   useEffect(() => {
-    checkTokenStatus()
-        
+    checkTokenStatus();
+
     const interval = setInterval(() => {
-        checkTokenStatus()
-      }, 300000);
-    
-      return () => clearInterval(interval);
-  },[])
+      checkTokenStatus();
+    }, 300000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const logoutUser = () => {
     localStorage.clear();
     location.href = "/";
   };
 
-async function checkTokenStatus(){
-    const response = await fetch(`https://heartfelt-new-caesydev.vercel.app/verify-token/`,{
-      method:"POST",
-      headers:{
-        Authorization: `Bearer ${user.accessToken}`
+  async function checkTokenStatus() {
+    const response = await fetch(
+      `https://heartfelt-new-caesydev.vercel.app/verify-token/`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       }
-    })
-    const data = await response.json()
-    console.log(response, data)
-    if(response.status === 401){
-        logoutUser()
+    );
+    const data = await response.json();
+    console.log(response, data);
+    if (response.status === 401) {
+      logoutUser();
     }
-}
+  }
 
   return (
     <div className="nav">
@@ -106,7 +109,9 @@ async function checkTokenStatus(){
               <Link to="/pricing">Pricing</Link>
             </li>
             <li>
-              <Link to="/try-demo">Try Demo</Link>
+              <Link to="/try-demo/f057313a-3107-4378-97ed-fc13fdc27daa">
+                Try Demo
+              </Link>
             </li>
             <div className="flex-between mobile-search">
               <div className="search-input flex-between">
