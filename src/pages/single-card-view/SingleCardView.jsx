@@ -26,9 +26,25 @@ const SingleCardView = ({ baseUrl }) => {
   const [isHowGiftCardWorksOpen, setIsHowGiftCardWorksOpen] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [showGif, setShowGif] = useState(false);
+  const [uploadedPhoto, setUploadedPhoto] = useState(
+    localStorage.getItem("uploadedPhoto")
+  );
+  const selectedGif = localStorage.getItem("selectedGif");
 
   const closeGif = () => {
     setShowGif(false);
+  };
+
+  const handlePhotoRead = (e) => {
+    const file = e.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const imgUrl = reader.result;
+      setUploadedPhoto(imgUrl);
+      localStorage.setItem("uploadedPhoto", imgUrl);
+    };
+    reader.readAsDataURL(file);
   };
 
   //
@@ -497,6 +513,30 @@ const SingleCardView = ({ baseUrl }) => {
                 ></textarea>
               </div>
             )} */}
+            {selectedGif && (
+              <img
+                width={80}
+                style={{
+                  position: "absolute",
+                  top: "40px",
+                  left: "10px",
+                  zIndex: "5566",
+                }}
+                src={selectedGif}
+              />
+            )}
+            {uploadedPhoto && (
+              <img
+                width={200}
+                style={{
+                  position: "absolute",
+                  top: "100px",
+                  left: "10px",
+                  zIndex: "5566",
+                }}
+                src={uploadedPhoto}
+              />
+            )}
             {showTextEditModalBtn && (
               <Draggable>
                 <div
@@ -671,8 +711,24 @@ const SingleCardView = ({ baseUrl }) => {
 
               {paperPage > 1 ? (
                 <div>
-                  <i className="bx bxs-image"></i>
-                  <p>Add Photo</p>
+                  <label
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                    htmlFor="avatar"
+                  >
+                    <i className="bx bxs-image"></i>
+                    <p>Add Photo</p>
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      id="avatar"
+                      accept="image/*"
+                      onChange={handlePhotoRead}
+                    />
+                  </label>
                 </div>
               ) : (
                 <div style={{ cursor: "not-allowed", opacity: "0.5" }}>
