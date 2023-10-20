@@ -30,7 +30,12 @@ const Occasions = () => {
             Relationship
           </li>
         </ul>
-        <button className="occasions" onClick={() => navigate("/try-demo")}>
+        <button
+          className="occasions"
+          onClick={() =>
+            navigate("/try-demo/f057313a-3107-4378-97ed-fc13fdc27daa")
+          }
+        >
           Try Demo
         </button>
       </div>

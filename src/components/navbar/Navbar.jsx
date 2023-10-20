@@ -69,7 +69,9 @@ const Navbar = () => {
                   <Link to="/pricing">Pricing</Link>
                 </li>
                 <li>
-                  <Link to="/try-demo">Try Demo</Link>
+                  <Link to="/try-demo/f057313a-3107-4378-97ed-fc13fdc27daa">
+                    Try Demo
+                  </Link>
                 </li>
                 <div className="flex-between mobile-search">
                   <div className="search-input flex-between">

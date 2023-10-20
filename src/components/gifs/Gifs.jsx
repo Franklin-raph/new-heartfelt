@@ -7,6 +7,7 @@ const Gifs = ({ closeGif }) => {
   const [gifs, setGifs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gifWord, setGifWord] = useState("");
+  const [selectedGif, setSelectedGif] = useState("");
 
   //
   useEffect(() => {
@@ -40,11 +41,12 @@ const Gifs = ({ closeGif }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      if(gifWord === ""){
-        getTrendingGifs()
-      }else{
-        const res =
-          await fetch(`https://api.giphy.com/v1/gifs/search?q=${gifWord}&api_key=GRFtDf0bUGl9vont2DutEQmaCr7O5VRY`);
+      if (gifWord === "") {
+        getTrendingGifs();
+      } else {
+        const res = await fetch(
+          `https://api.giphy.com/v1/gifs/search?q=${gifWord}&api_key=GRFtDf0bUGl9vont2DutEQmaCr7O5VRY`
+        );
         const data = await res.json();
         if (res) {
           setLoading(false);
@@ -57,12 +59,18 @@ const Gifs = ({ closeGif }) => {
         }
         setGifs(data.data);
       }
-
     } catch (err) {
       console.log(err);
       setLoading(false);
     }
   };
+
+  //
+  const getGifInfo = (gif) => {
+    setSelectedGif(gif.images.fixed_height.url);
+    console.log(gif);
+  };
+  localStorage.setItem("selectedGif", selectedGif);
 
   return (
     <div className="gif_cont_wrapper">
@@ -81,7 +89,11 @@ const Gifs = ({ closeGif }) => {
         {loading && <GifsSkeleton />}
         {gifs &&
           gifs.map((gif) => (
-            <div className="gif_holder" key={gif.id}>
+            <div
+              className="gif_holder"
+              key={gif.id}
+              onClick={() => getGifInfo(gif)}
+            >
               <img src={gif.images.fixed_height.url} alt={gif.title} />
             </div>
           ))}
