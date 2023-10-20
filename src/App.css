@@ -5062,3 +5062,28 @@ nav input {
 .cancel-button {
   background-color: rgb(203, 203, 203);
 }
+.loader-bg1{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 101;
+}
+
+.loader-bg2{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 102;
+}
+
+.loader-bg1 i{
+  color: #fff;
+  font-size: 30px;
+}

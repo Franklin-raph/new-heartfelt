@@ -249,8 +249,70 @@ const CardSettings = ({ baseUrl }) => {
     });
   }
 
-  async function updateCardSettings(){
-
+  async function updateCardSettings(e){
+    console.log(
+      JSON.stringify({
+        recipientEmail: recipientEmail,
+        recipientFullName: recipientFullName,
+        // addConfetti: "false",
+        addMedia:addMedia,
+        sendToEmail: sendToEmail,
+        cardCoverUrl: uploadedCard,
+        date: deliveryDate,
+        time: deliveryTime,
+        timeZone: deliveryTimeZone,
+        addGiftCard: addGiftCardCheck,
+        setNextYearReminder: nextYearReminder,
+        couponCode: "1234",
+        cardID:id
+      }))
+    e.preventDefault()
+    // if (
+    //   !recipientFullName ||
+    //   !recipientEmail ||
+    //   !senderFullName ||
+    //   !deliveryDate ||
+    //   !deliveryTime ||
+    //   !deliveryTimeZone
+    // ) {
+    //   error_modal_1.current.classList.toggle("show_delivery_error_modal");
+    //   return;
+    // } else {
+      setLoader(true);
+      const response = await fetch(`${baseUrl}/update-created-card`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify({
+          recipientEmail: recipientEmail,
+          recipientFullName: recipientFullName,
+          addConfetti: "false",
+          // addAudioCheck: addAudioCheck,
+          addMedia: addMedia,
+          sendToEmail: sendToEmail,
+          cardCoverUrl: image,
+          date: deliveryDate,
+          time: deliveryTime,
+          timeZone: deliveryTimeZone,
+          addGiftCard: addGiftCardCheck,
+          setNextYearReminder: nextYearReminder,
+          couponCode: "1234",
+          cardID:id
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response) setLoader(false);
+      if (response.ok) {
+        console.log(data)
+        // getPayStackToken(data.cardID);
+        // setCardId(data.cardID);
+        // payWithPayStack()
+        // window.location.href = `${data.data.paymentLink}`
+      // }
+    }
   }
 
       return (
@@ -521,8 +583,8 @@ const CardSettings = ({ baseUrl }) => {
             <div className="delivery_details_col_2_header">
               <h5>Order Summary</h5>
               <div className="delivery_details_img">
-                {uploadedCard && <img src={image} alt="" />}
-                {!uploadedCard && <img src={deliver_details_icon} alt="" />}
+                <img src={image} alt="" />
+                {/* {!uploadedCard && <img src={deliver_details_icon} alt="" />} */}
               </div>
             </div>
             <div className="delivery_details_summary_row">

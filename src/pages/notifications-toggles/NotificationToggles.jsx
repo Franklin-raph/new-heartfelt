@@ -9,6 +9,7 @@ const NotificationToggles = ({baseUrl}) => {
   const[specialPromotionsToggleState, setSpecialPromotionsToggleState] = useState()
   const[newFeaturesToggleState, setNewFeaturesToggleState] = useState()
   const[systemUpdateToggleState, setSystemUpdateToggleState] = useState()
+  const [loader, setLoader] = useState(false)
   //
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
@@ -41,16 +42,22 @@ const NotificationToggles = ({baseUrl}) => {
     sidebar.current.classList.toggle("open_sidebar");
   };
 
-    const handleToggleCardSettingsNotification = async (cardSetting, cardSentNotificationToggleState) => {
-      console.log(JSON.stringify({setting:cardSetting, value:cardSentNotificationToggleState}))
-      const response = await fetch(`${baseUrl}/update-user-notification-service`,{
+    const handleToggleCardSettingsNotification = async (cardSetting, value) => {
+      console.log(`${baseUrl}/update-user-notification-service/${cardSetting}/${value}`)
+      setLoader(true)
+      const response = await fetch(`${baseUrl}/update-user-notification-service/${cardSetting}/${value}`,{
         method:"POST",
         headers: {
-          Authorization: `Bearer ${user.accessToken}`
+          Authorization: `Bearer ${user.accessToken}`,
+          "Content-Type":"application/json"
         },
-        body: JSON.stringify({setting:cardSetting, value:cardSentNotificationToggleState})
+        // body: JSON.stringify({setting:cardSetting, value:cardSentNotificationToggleState})
       })
       const data = await response.json()
+      if(response) setLoader(false)
+      if(response.ok){
+        getUserNotificationSettings()
+      }
       console.log(data)
     // cardSentNotificationToggle.current.classList.toggle("toggle_notification");
   };
@@ -58,6 +65,13 @@ const NotificationToggles = ({baseUrl}) => {
   //
   return (
     <section className="user_dashbaord_section">
+      {loader && 
+      <div className="loader-bg1">
+        <div className="loader-bg2">
+          <i className="fa-solid fa-spinner fa-spin"></i>
+        </div>
+      </div>
+      }
       <i
         className="ri-align-justify user_dashboard_toggler open"
         onClick={openSidebar}
