@@ -20,7 +20,7 @@ const DeliveryDetails = ({ baseUrl }) => {
   const uploadedCard = JSON.parse(localStorage.getItem("uploaded-card"));
   const [recipientFullName, setRecipientFullName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
-  const [senderFullName, setSenderFullName] = useState("");
+  const [senderFullName, setSenderFullName] = useState(user.user.name);
   const [deliveryDate, setDeliveryDate] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
   const [deliveryTimeZone, setDeliveryTimeZone] = useState("");
@@ -408,24 +408,6 @@ const DeliveryDetails = ({ baseUrl }) => {
               />
               <label htmlFor="add_video">Add video and Audio</label>
             </div>
-            {/*  */}
-            {/*  */}
-            {/* <div>
-              <input
-                type="checkbox"
-                id="add_audio"
-                checked={addAudioCheck}
-                onChange={() => setAddAudioCheck(!addAudioCheck)}
-              />
-              <label htmlFor="add_audio">Add Audio</label>
-            </div> */}
-            {/*  */}
-            {/*  */}
-            {/* <div>
-              <input type="checkbox" id="add_confetti" />
-              <label htmlFor="add_confetti">Add confetti</label>
-            </div> */}
-            {/*  */}
             <div>
               <input
                 type="checkbox"
@@ -449,19 +431,6 @@ const DeliveryDetails = ({ baseUrl }) => {
             </div>
             {/*  */}
           </div>
-          {/* <div className="coupon_input">
-            <label htmlFor="coupon_input">Coupon Code</label>
-            <div className="coupon_input_box">
-              <input
-                type="text"
-                id="coupon_input"
-                placeholder="Enter Code"
-                onChange={(e) => setDeliveryCouponCode(e.target.value)}
-                value={deliveryCouponCode}
-              />
-              <button>Apply</button>
-            </div>
-          </div> */}
           {loader ? (
             <button className="delivery_form_purchase_btn">
               <i className="fa-solid fa-spinner fa-spin"></i>

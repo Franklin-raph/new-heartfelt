@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { FillInAllFormDetails } from "../../components/form-error-modal/DeliveryDetailsErrorModal";
 import PaystackPop from "@paystack/inline-js";
 import PaymentSuuccessfullModal from "../../components/payment-successfull-modal/PaymentSuuccessfullModal";
+import SuccessAlert from "../../components/alert/SuccessAlert";
 
 const CardSettings = ({ baseUrl }) => {
 
@@ -28,7 +29,7 @@ const CardSettings = ({ baseUrl }) => {
   const uploadedCard = JSON.parse(localStorage.getItem("uploaded-card"));
   const [recipientFullName, setRecipientFullName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
-  const [senderFullName, setSenderFullName] = useState("");
+  const [senderFullName, setSenderFullName] = useState(user.user.name);
   const [deliveryDate, setDeliveryDate] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
   const [deliveryTimeZone, setDeliveryTimeZone] = useState("");
@@ -48,6 +49,8 @@ const CardSettings = ({ baseUrl }) => {
   const [addMedia, setAddMedia] = useState(false);
   const [paymentSuccessfullModal, setPaymentSuccessfullModal] = useState(false);
   const [cardId, setCardId] = useState("");
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   async function getCardInfo() {
     const response = await fetch(`${baseUrl}/get-card-sign-details/${id}`);
@@ -294,7 +297,6 @@ const CardSettings = ({ baseUrl }) => {
           // addAudioCheck: addAudioCheck,
           addMedia: addMedia,
           sendToEmail: sendToEmail,
-          cardCoverUrl: imageUrl,
           date: deliveryDate,
           time: deliveryTime,
           timeZone: deliveryTimeZone,
@@ -308,6 +310,8 @@ const CardSettings = ({ baseUrl }) => {
       console.log(data);
       if (response) setLoader(false);
       if (response.ok) {
+        setSuccess(data.message)
+        getCardInfo()
         console.log(data)
         // getPayStackToken(data.cardID);
         // setCardId(data.cardID);
@@ -501,24 +505,6 @@ const CardSettings = ({ baseUrl }) => {
                   />
                   <label htmlFor="add_video">Add video and Audio</label>
                 </div>
-                {/*  */}
-                {/*  */}
-                {/* <div>
-                  <input
-                    type="checkbox"
-                    id="add_audio"
-                    checked={addAudioCheck}
-                    onChange={() => setAddAudioCheck(!addAudioCheck)}
-                  />
-                  <label htmlFor="add_audio">Add Audio</label>
-                </div> */}
-                {/*  */}
-                {/*  */}
-                {/* <div>
-                  <input type="checkbox" id="add_confetti" />
-                  <label htmlFor="add_confetti">Add confetti</label>
-                </div> */}
-                {/*  */}
                 <div>
                   <input
                     type="checkbox"
@@ -546,19 +532,6 @@ const CardSettings = ({ baseUrl }) => {
                 </div>
                 {/*  */}
               </div>
-              {/* <div className="coupon_input">
-                <label htmlFor="coupon_input">Coupon Code</label>
-                <div className="coupon_input_box">
-                  <input
-                    type="text"
-                    id="coupon_input"
-                    placeholder="Enter Code"
-                    onChange={(e) => setDeliveryCouponCode(e.target.value)}
-                    value={deliveryCouponCode}
-                  />
-                  <button>Apply</button>
-                </div>
-              </div> */}
               {loader ? (
                 <button className="delivery_form_purchase_btn">
                   <i className="fa-solid fa-spinner fa-spin"></i>
@@ -574,7 +547,6 @@ const CardSettings = ({ baseUrl }) => {
                         Purchase Card
                 </button>
                 }
-                    
                 </>
               )}
             </form>
@@ -623,19 +595,14 @@ const CardSettings = ({ baseUrl }) => {
                 <img src={payStackIcon} alt="" />
                 <p>Paystack</p>
               </div>
-              {/* <div>
-                <input type="radio" name="paywith" />
-                <img src={payStackIcon} alt="" />
-                <p>Flutterwave</p>
-              </div> */}
             </div>
-            {/* <Link className="delivery_details_footer_link">Change Gift Card</Link> */}
           </div>
           <FillInAllFormDetails
             error_modal_1={error_modal_1}
             close_modal_1={close_error_modal_1}
           />
           {paymentSuccessfullModal && <PaymentSuuccessfullModal cardId={cardId} />}
+          {success && <SuccessAlert success={success} setSuccess={setSuccess}/> }
         </section>
       );
 }

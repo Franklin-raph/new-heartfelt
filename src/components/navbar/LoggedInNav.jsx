@@ -165,7 +165,7 @@ const LoggedInNav = ({ baseUrl }) => {
               <i className="ri-user-3-line nav_profile_icon"></i>
             </div>
             <div onClick={() => navigateToUserDashboard()}>
-              <h5>{user && user.user.email}</h5>
+              <h5>{user && user.user.name}</h5>
               <p>View Public Profile</p>
             </div>
           </div>
