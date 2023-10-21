@@ -64,6 +64,7 @@ const CardSettings = ({ baseUrl }) => {
     setAddGiftCardCheck(data.details.addGiftCard)
     setDeliveryVoucherCode(data.details.couponCode)
     setImage(data.details.cardCoverUrl)
+    localStorage.setItem("cardSettingsImage", JSON.stringify(data.details.cardCoverUrl))
     // setSignedCardSignatures(data.signatures);
     // setSignedCardDetails(data.details);
     // setCardDate(data.details.date)
@@ -124,7 +125,7 @@ const CardSettings = ({ baseUrl }) => {
 
   async function submitCardDeliveryDetails(e) {
     e.preventDefault();
-
+  const imageUrl = JSON.parse(localStorage.getItem("cardSettingsImage"))
     console.log(
       JSON.stringify({
         recipientEmail: recipientEmail,
@@ -250,6 +251,7 @@ const CardSettings = ({ baseUrl }) => {
   }
 
   async function updateCardSettings(e){
+  const imageUrl = JSON.parse(localStorage.getItem("cardSettingsImage"))
     console.log(
       JSON.stringify({
         recipientEmail: recipientEmail,
@@ -257,7 +259,7 @@ const CardSettings = ({ baseUrl }) => {
         // addConfetti: "false",
         addMedia:addMedia,
         sendToEmail: sendToEmail,
-        cardCoverUrl: uploadedCard,
+        cardCoverUrl: imageUrl,
         date: deliveryDate,
         time: deliveryTime,
         timeZone: deliveryTimeZone,
@@ -292,7 +294,7 @@ const CardSettings = ({ baseUrl }) => {
           // addAudioCheck: addAudioCheck,
           addMedia: addMedia,
           sendToEmail: sendToEmail,
-          cardCoverUrl: image,
+          cardCoverUrl: imageUrl,
           date: deliveryDate,
           time: deliveryTime,
           timeZone: deliveryTimeZone,
