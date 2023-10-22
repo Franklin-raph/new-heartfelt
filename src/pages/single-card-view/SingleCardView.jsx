@@ -22,6 +22,35 @@ import Gifs from "../../components/gifs/Gifs";
 //
 
 const SingleCardView = ({ baseUrl }) => {
+  // =======================
+  // =======================
+  const [colorToolTip, setColorToolTip] = useState(false);
+  const [typefaceToolTip, setTypefaceToolTip] = useState(false);
+  const [textSizeToolTip, setTextSizeToolTip] = useState(false);
+  const [textStyleToolTip, setTextStyleToolTip] = useState(false);
+  const [textAlignToolTip, setTextAlignToolTip] = useState(false);
+  const [senderNameToolTip, setSenderNameToolTip] = useState(false);
+
+  // Wants Text Edit States
+  const [showColorPalette, setShowColorPalette] = useState(false);
+  const [textEditFonts, setTextEditFonts] = useState(false);
+  const [showEditSizeModal, setShowEditSizeModal] = useState(false);
+  const [showTextAlignModal, setShowTextAlignModal] = useState(false);
+  // =======================
+  // =======================
+  // ======================
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [comment, setComment] = useState("");
+  const [signedCardDetails, setSignedCardDetails] = useState();
+  const [signedCardSignatures, setSignedCardSignatures] = useState([]);
+  const cardID = JSON.parse(localStorage.getItem("cardID"));
+  const user = JSON.parse(localStorage.getItem("user"));
+  const { cardId } = useParams();
+  // =======================
+  // =======================
+  //
   const [isGiftCardSettingsOpen, setIsGiftCardSettingsOpen] = useState(false);
   const [isHowGiftCardWorksOpen, setIsHowGiftCardWorksOpen] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
@@ -29,13 +58,22 @@ const SingleCardView = ({ baseUrl }) => {
   const [uploadedPhoto, setUploadedPhoto] = useState(
     localStorage.getItem("uploadedPhoto")
   );
+  const [signatureType, setSignatureType] = useState("");
   const selectedGif = localStorage.getItem("selectedGif");
+
+  const handleShowGif = () => {
+    setShowTextEditModalBtn(true);
+    setShowGif(true);
+    setSignatureType("gif");
+  };
 
   const closeGif = () => {
     setShowGif(false);
   };
 
   const handlePhotoRead = (e) => {
+    setShowTextEditModalBtn(true);
+    setSignatureType("image");
     const file = e.target.files[0];
 
     const reader = new FileReader();
@@ -43,6 +81,7 @@ const SingleCardView = ({ baseUrl }) => {
       const imgUrl = reader.result;
       setUploadedPhoto(imgUrl);
       localStorage.setItem("uploadedPhoto", imgUrl);
+      setComment(imgUrl);
     };
     reader.readAsDataURL(file);
   };
@@ -68,36 +107,6 @@ const SingleCardView = ({ baseUrl }) => {
       return;
     }
   };
-
-  // =======================
-  // =======================
-  const [colorToolTip, setColorToolTip] = useState(false);
-  const [typefaceToolTip, setTypefaceToolTip] = useState(false);
-  const [textSizeToolTip, setTextSizeToolTip] = useState(false);
-  const [textStyleToolTip, setTextStyleToolTip] = useState(false);
-  const [textAlignToolTip, setTextAlignToolTip] = useState(false);
-  const [senderNameToolTip, setSenderNameToolTip] = useState(false);
-
-  // Wants Text Edit States
-  const [showColorPalette, setShowColorPalette] = useState(false);
-  const [textEditFonts, setTextEditFonts] = useState(false);
-  const [showEditSizeModal, setShowEditSizeModal] = useState(false);
-  const [showTextAlignModal, setShowTextAlignModal] = useState(false);
-  // =======================
-  // =======================
-  // ======================
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-  const [loader, setLoader] = useState(false);
-  const [comment, setComment] = useState();
-  const [signedCardDetails, setSignedCardDetails] = useState();
-  const [signedCardSignatures, setSignedCardSignatures] = useState([]);
-  const cardID = JSON.parse(localStorage.getItem("cardID"));
-  const user = JSON.parse(localStorage.getItem("user"));
-  const { cardId } = useParams();
-  // =======================
-  // =======================
-  //
   const handleShowColorPalette = () => {
     setShowColorPalette(!showColorPalette);
     setTextEditFonts(false);
@@ -133,6 +142,14 @@ const SingleCardView = ({ baseUrl }) => {
   // =======================
   // ======================
   const handleSignCard = async (e) => {
+    console.log(
+      JSON.stringify({
+        cardID: cardId,
+        data: comment,
+        type: signatureType,
+        // commentBy: user.user.email,
+      })
+    );
     console.log("sign");
     if (!comment) {
       setError("Cannot save empty content");
@@ -147,11 +164,13 @@ const SingleCardView = ({ baseUrl }) => {
             // Authorization: `Bearer ${user.accessToken}`,
           },
           body: JSON.stringify({
-            comment: comment,
-            // commentBy: user.user.email,
             cardID: cardId,
+            data: comment,
+            type: signatureType,
+            // commentBy: user.user.email,
           }),
         });
+
         if (res) setLoader(false);
         const data = await res.json();
         if (res.ok) {
@@ -180,9 +199,11 @@ const SingleCardView = ({ baseUrl }) => {
 
   const show_card_view_modal = () => {
     setShowTextEditModalBtn(true);
+    setSignatureType("text");
   };
 
   const close_card_view_modal = () => {
+    setShowGif(false);
     setShowTextEditModalBtn(false);
   };
 
@@ -457,7 +478,7 @@ const SingleCardView = ({ baseUrl }) => {
             )}
           </div>
           <div className="GigHolder">
-            {showGif && <Gifs closeGif={closeGif} />}
+            {showGif && <Gifs setComment={setComment} closeGif={closeGif} />}
           </div>
           <div className="card_flip_paper card_flip_paper_2 " ref={paper_2}>
             {addAudio && (
@@ -634,7 +655,9 @@ const SingleCardView = ({ baseUrl }) => {
                         textAlign: commentStyles.align,
                       }}
                     >
-                      {signature.comment}
+                      {signature.commentType === "text"
+                        ? signature.comment
+                        : ""}
                     </p>
                   </h2>
                 ))}
@@ -770,7 +793,7 @@ const SingleCardView = ({ baseUrl }) => {
                 )} */}
 
               {paperPage > 1 ? (
-                <div onClick={() => setShowGif(true)}>
+                <div onClick={handleShowGif}>
                   <i className="bx bx-smile"></i>
                   <p>Add GIF/Sticker</p>
                 </div>
