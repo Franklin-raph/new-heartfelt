@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import GifsSkeleton from "./GifsSkeleton";
 
-const Gifs = ({ closeGif }) => {
+const Gifs = ({ closeGif, setComment }) => {
   const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
   const [gifs, setGifs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gifWord, setGifWord] = useState("");
-  const [selectedGif, setSelectedGif] = useState("");
+  const [selectedGif, setSelectedGif] = useState(
+    localStorage.getItem("selectedGif") || ""
+  );
 
   //
   useEffect(() => {
+    localStorage.setItem("selectedGif", selectedGif);
     getTrendingGifs();
-  }, []);
+  }, [selectedGif]);
 
   const getTrendingGifs = async () => {
     try {
@@ -66,11 +69,13 @@ const Gifs = ({ closeGif }) => {
   };
 
   //
-  const getGifInfo = (gif) => {
+  const getGifInfo = async (gif) => {
     setSelectedGif(gif.images.fixed_height.url);
-    console.log(gif);
+    localStorage.setItem("selectedGif", gif.images.fixed_height.url);
+    setComment(gif.images.fixed_height.url);
+    await closeGif();
+    console.log(gif.images.fixed_height.url);
   };
-  localStorage.setItem("selectedGif", selectedGif);
 
   return (
     <div className="gif_cont_wrapper">

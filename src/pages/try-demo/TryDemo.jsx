@@ -32,6 +32,11 @@ const TryDemo = ({ baseUrl }) => {
   );
   const selectedGif = localStorage.getItem("selectedGif");
 
+  const handleShowGif = () => {
+    setShowTextEditModalBtn(true);
+    setShowGif(true);
+  };
+
   const closeGif = () => {
     setShowGif(false);
   };
@@ -184,6 +189,7 @@ const TryDemo = ({ baseUrl }) => {
   };
 
   const close_card_view_modal = () => {
+    setShowGif(false);
     setShowTextEditModalBtn(false);
   };
 
@@ -775,7 +781,7 @@ const TryDemo = ({ baseUrl }) => {
                 )} */}
 
                 {paperPage > 1 ? (
-                  <div onClick={() => setShowGif(true)}>
+                  <div onClick={handleShowGif}>
                     <i className="bx bx-smile"></i>
                     <p>Add GIF/Sticker</p>
                   </div>
