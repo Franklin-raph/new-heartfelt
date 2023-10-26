@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Occasions from "../../components/occasions/Occasions";
+import SuccessAlert from "../../components/alert/SuccessAlert";
 
 const ContactUs = ({ baseUrl }) => {
   const [contactInfo, setContactInfo] = useState({
@@ -9,6 +10,7 @@ const ContactUs = ({ baseUrl }) => {
     subject: "",
   });
   const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const { name, email, content, subject } = contactInfo;
   //
   const handleSubmit = async (e) => {
@@ -27,7 +29,11 @@ const ContactUs = ({ baseUrl }) => {
       console.log(data);
       if (res) setLoading(false);
       if (!res.ok) setLoading(false);
-      if (res.ok) setLoading(false);
+      if (res.ok) {
+        setLoading(false);
+        setIsSuccess(true);
+        setContactInfo({ name: "", content: "", email: "", subject: "" });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -39,41 +45,81 @@ const ContactUs = ({ baseUrl }) => {
       <Occasions />
       <form className="contact_us_form" onSubmit={handleSubmit}>
         <h2>Contact Us</h2>
-        <div className="contact_us_inputs">
-          <input
-            type="text"
-            placeholder="Full name"
-            value={contactInfo.name}
-            onChange={(e) =>
-              setContactInfo({ ...contactInfo, name: e.target.value })
-            }
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={contactInfo.email}
-            onChange={(e) =>
-              setContactInfo({ ...contactInfo, email: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Subject"
-            value={contactInfo.subject}
-            onChange={(e) =>
-              setContactInfo({ ...contactInfo, subject: e.target.value })
-            }
-          />
-          <textarea
-            rows="6"
-            placeholder="Message..."
-            value={contactInfo.content}
-            onChange={(e) =>
-              setContactInfo({ ...contactInfo, content: e.target.value })
-            }
-          ></textarea>
+        <p>
+          Need to get in touch with us? <br />
+          Please fill out the form with the required details.
+        </p>
+        <div className="contact_us_inputs_holder">
+          <div className="contact_us_inputs">
+            <div className="contact_us_input">
+              <label htmlFor="fullname">
+                Full name <span>*</span>
+              </label>
+              <input
+                type="text"
+                id="fullname"
+                value={name}
+                onChange={(e) =>
+                  setContactInfo({ ...contactInfo, name: e.target.value })
+                }
+              />
+            </div>
+            <div className="contact_us_input">
+              <label htmlFor="email">
+                Email <span>*</span>
+              </label>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                onChange={(e) =>
+                  setContactInfo({ ...contactInfo, email: e.target.value })
+                }
+              />
+            </div>
+            <div className="contact_us_input">
+              <label htmlFor="subject">
+                Subject <span>*</span>
+              </label>
+              <input
+                type="text"
+                id="subject"
+                value={subject}
+                onChange={(e) =>
+                  setContactInfo({ ...contactInfo, subject: e.target.value })
+                }
+              />
+            </div>
+            <div className="contact_us_input">
+              <label htmlFor="content">
+                Message <span>*</span>
+              </label>
+              <textarea
+                id="content"
+                rows="4"
+                value={content}
+                onChange={(e) =>
+                  setContactInfo({ ...contactInfo, content: e.target.value })
+                }
+              ></textarea>
+            </div>
+          </div>
+          <button>Submit</button>
+          {loading && (
+            <div className="contact_us_loading_cont">
+              <i className="fa-light fa-gear fa-spin contact_us_form_loading_icon"></i>
+            </div>
+          )}
+          {isSuccess && (
+            <SuccessAlert>
+              <p>Message has been sent successfully</p>
+              <i
+                className="fa-light fa-xmark contact_us_form_close_modal"
+                onClick={() => setIsSuccess(false)}
+              ></i>
+            </SuccessAlert>
+          )}
         </div>
-        <button>Send Mail</button>
       </form>
     </div>
   );
