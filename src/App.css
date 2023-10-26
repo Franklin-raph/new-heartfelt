@@ -3896,6 +3896,47 @@ nav input {
   z-index: 999999;
   /* box-shadow: 1px 8px 12px rgba(0, 0, 0, 0.327); */
 }
+
+.contact_us_form {
+  width: 576px;
+  margin: 0 auto;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact_us_form h2 {
+  align-self: flex-start;
+  font-size: 22px;
+  color: var(--header-texts);
+}
+
+.contact_us_inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact_us_inputs input,
+.contact_us_inputs textarea {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  box-shadow: 0 0 0 1.2px var(--header-texts);
+  border-radius: 10px;
+  padding: 15px 0 15px 8px;
+}
+
+.contact_us_form button {
+  background: var(--primary-color);
+  color: var(--generic-white);
+  display: inline-block;
+  margin-top: 1rem;
+}
+
 /*  */
 /* ================ MEDIA QUERY ==================== */
 /* ===================================================== */
@@ -5062,14 +5103,14 @@ nav input {
 .cancel-button {
   background-color: rgb(203, 203, 203);
 }
-.loader-bg1{
+.loader-bg1 {
   position: fixed;
   width: 100vw;
   height: 100vh;
   z-index: 101;
 }
 
-.loader-bg2{
+.loader-bg2 {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -5083,7 +5124,7 @@ nav input {
   z-index: 102;
 }
 
-.loader-bg1 i{
+.loader-bg1 i {
   color: #fff;
   font-size: 30px;
 }

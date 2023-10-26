@@ -86,7 +86,7 @@ function App() {
         <Route path="/terms-of-use" element={<TermsOfUse />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/contact-us" element={<ContactUs baseUrl={baseUrl} />} />
         <Route path="/sign-in" element={<SignIn baseUrl={baseUrl} />} />
         <Route path="/sign-up" element={<SignUp baseUrl={baseUrl} />} />
         <Route
