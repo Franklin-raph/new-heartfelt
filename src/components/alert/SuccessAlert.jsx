@@ -5,6 +5,7 @@ const SuccessAlert = ({ success, setSuccess, children, noCloseIcon }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const closeIcon = useRef();
+  const { pathname } = useLocation();
   return (
     <div>
       <div className="successModalBg">
@@ -12,7 +13,9 @@ const SuccessAlert = ({ success, setSuccess, children, noCloseIcon }) => {
           className="successModal flex items-center justify-center flex-col gap-5"
           style={{ position: "relative" }}
         >
-          {location.pathname === "/upload-card" ? (
+          {pathname === "/upload-card" ? (
+            <></>
+          ) : pathname === "/contact-us" ? (
             <></>
           ) : (
             <i

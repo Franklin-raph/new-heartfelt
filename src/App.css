@@ -3896,6 +3896,101 @@ nav input {
   z-index: 999999;
   /* box-shadow: 1px 8px 12px rgba(0, 0, 0, 0.327); */
 }
+
+.contact_us_form {
+  width: 576px;
+  margin: 0 auto;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  color: var(--body-texts);
+}
+
+.contact_us_inputs_holder {
+  position: relative;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.327);
+  padding: 10px 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact_us_inputs {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.contact_us_input {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact_us_input label {
+  margin-bottom: 8px;
+}
+
+.contact_us_input label span {
+  color: var(--minor-color-3);
+}
+
+.contact_us_input input,
+.contact_us_input textarea {
+  padding: 4px 0 4px 4px;
+  border: 0;
+  outline: 0;
+  border-bottom: 1.3px solid var(--icons-color);
+  resize: none;
+}
+
+.contact_us_inputs_holder button {
+  background: var(--primary-color);
+  color: var(--generic-white);
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.contact_us_input:first-child {
+  grid-column: 1/5;
+}
+
+.contact_us_input:nth-child(3) {
+  grid-column: 2/5;
+}
+
+.contact_us_input:last-child {
+  grid-column: 1/5;
+}
+
+.contact_us_loading_cont {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--header-texts);
+  color: var(--generic-white);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact_us_form_loading_icon {
+  font-size: 24px;
+}
+
+.contact_us_form_close_modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: var(--body-texts);
+  font-size: 24px;
+  cursor: pointer;
+}
+
 /*  */
 /* ================ MEDIA QUERY ==================== */
 /* ===================================================== */
@@ -4587,6 +4682,10 @@ nav input {
   .gif_cont_wrapper {
     width: 380px;
   }
+
+  .contact_us_form {
+    width: 95%;
+  }
 }
 /* =========================================== */
 /* =========================================== */
@@ -4917,6 +5016,14 @@ nav input {
   .gif_cont_body {
     grid-template-columns: repeat(2, auto);
   }
+
+  .contact_us_form h2 {
+    font-size: 18px;
+  }
+
+  .contact_us_form p {
+    font-size: 14px;
+  }
 }
 
 /* ======================== */
@@ -5062,14 +5169,14 @@ nav input {
 .cancel-button {
   background-color: rgb(203, 203, 203);
 }
-.loader-bg1{
+.loader-bg1 {
   position: fixed;
   width: 100vw;
   height: 100vh;
   z-index: 101;
 }
 
-.loader-bg2{
+.loader-bg2 {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -5083,7 +5190,7 @@ nav input {
   z-index: 102;
 }
 
-.loader-bg1 i{
+.loader-bg1 i {
   color: #fff;
   font-size: 30px;
 }
