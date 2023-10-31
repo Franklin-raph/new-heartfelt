@@ -1989,6 +1989,7 @@ nav input {
 .single_card_col.col_3 div:hover {
   box-shadow: 0 0 0 1.5px var(--primary-color);
   color: var(--primary-color);
+  scale: 0.97;
 }
 
 .react_draggable_cont {
@@ -3989,6 +3990,72 @@ nav input {
   color: var(--body-texts);
   font-size: 24px;
   cursor: pointer;
+}
+
+.selected_gif_cont {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 100px;
+  width: 80px;
+  z-index: 5555;
+}
+
+.selected_gif_cont i,
+.selected_photo_cont i {
+  position: absolute;
+  z-index: 444;
+  right: -10px;
+  top: 0;
+  color: var(--minor-color-3);
+  cursor: pointer;
+  background: var();
+}
+
+.selected_gif_cont img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  object-fit: cover;
+}
+
+.selected_photo_cont {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  height: 100px;
+  width: 300px;
+  z-index: 555;
+}
+
+.selected_photo_cont img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+#upload_card_audio {
+  display: none;
+}
+
+.upload_card_audio_btn {
+  cursor: pointer;
+  padding: 9px 16px 9px 8px !important;
+  box-shadow: 0 0 0 1.5px var(--stroke-white);
+  border-radius: 8px;
+  transition: 300ms ease-in-out;
+}
+
+.upload_card_audio_btn:hover {
+  box-shadow: 0 0 0 1.5px var(--primary-color);
+  color: var(--primary-color);
+  scale: 0.97;
 }
 
 /*  */

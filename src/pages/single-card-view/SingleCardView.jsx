@@ -59,7 +59,11 @@ const SingleCardView = ({ baseUrl }) => {
     localStorage.getItem("uploadedPhoto")
   );
   const [signatureType, setSignatureType] = useState("");
-  const selectedGif = localStorage.getItem("selectedGif");
+  // const selectedGif = localStorage.getItem("selectedGif");
+  const [selectedGif, setSelectedGif] = useState(
+    localStorage.getItem("selectedGif") || ""
+  );
+  const [isAudio, setIsAudio] = useState(false);
 
   const handleShowGif = () => {
     setShowTextEditModalBtn(true);
@@ -69,6 +73,20 @@ const SingleCardView = ({ baseUrl }) => {
 
   const closeGif = () => {
     setShowGif(false);
+  };
+
+  const handleRemoveGif = () => {
+    setSelectedGif("");
+  };
+
+  const handleRemoveUpladedPhoto = () => {
+    setUploadedPhoto("");
+  };
+
+  const handleClickedAudio = () => {
+    setAddAudio(!addAudio);
+    setIsAudio(!isAudio);
+    setShowTextEditModalBtn(true);
   };
 
   const handlePhotoRead = (e) => {
@@ -205,6 +223,7 @@ const SingleCardView = ({ baseUrl }) => {
   const close_card_view_modal = () => {
     setShowGif(false);
     setShowTextEditModalBtn(false);
+    setIsAudio(false);
   };
 
   //
@@ -478,7 +497,14 @@ const SingleCardView = ({ baseUrl }) => {
             )}
           </div>
           <div className="GigHolder">
-            {showGif && <Gifs setComment={setComment} closeGif={closeGif} />}
+            {showGif && (
+              <Gifs
+                selectedGif={selectedGif}
+                setSelectedGif={setSelectedGif}
+                setComment={setComment}
+                closeGif={closeGif}
+              />
+            )}
           </div>
           <div className="card_flip_paper card_flip_paper_2 " ref={paper_2}>
             {addAudio && (
@@ -490,6 +516,7 @@ const SingleCardView = ({ baseUrl }) => {
                 }}
                 downloadOnSavePress={true}
                 downloadFileExtension="webm"
+                showVisualizer={true}
               />
             )}
             {/*  */}
@@ -535,28 +562,16 @@ const SingleCardView = ({ baseUrl }) => {
               </div>
             )} */}
             {selectedGif && (
-              <img
-                width={80}
-                style={{
-                  position: "absolute",
-                  top: "40px",
-                  left: "10px",
-                  zIndex: "5566",
-                }}
-                src={selectedGif}
-              />
+              <div className="selected_gif_cont">
+                <img src={selectedGif} />
+                <CloseIcon onClick={handleRemoveGif} />
+              </div>
             )}
             {uploadedPhoto && (
-              <img
-                width={200}
-                style={{
-                  position: "absolute",
-                  top: "100px",
-                  left: "10px",
-                  zIndex: "5566",
-                }}
-                src={uploadedPhoto}
-              />
+              <div className="selected_photo_cont">
+                <img src={uploadedPhoto} />
+                <CloseIcon onClick={handleRemoveUpladedPhoto} />
+              </div>
             )}
             {showTextEditModalBtn && (
               <Draggable>
@@ -763,7 +778,7 @@ const SingleCardView = ({ baseUrl }) => {
               {signedCardDetails && signedCardDetails.addMedia === true && (
                 <>
                   {paperPage > 1 ? (
-                    <div onClick={() => setAddAudio(!addAudio)}>
+                    <div onClick={handleClickedAudio}>
                       <i className="bx bxs-microphone"></i>
                       <p>Add Audio</p>
                     </div>
@@ -835,6 +850,17 @@ const SingleCardView = ({ baseUrl }) => {
                 <i className="bx bxs-x-circle"></i>
                 <p>Cancel</p>
               </div>
+              {isAudio && (
+                <>
+                  <label
+                    className="upload_card_audio_btn"
+                    htmlFor="upload_card_audio"
+                  >
+                    Upload Audio
+                  </label>
+                  <input type="file" id="upload_card_audio" accept="audio/*" />
+                </>
+              )}
             </>
           )}
         </div>
@@ -993,3 +1019,9 @@ export const HowGiftCardWorksModal = ({ setIsHowGiftCardWorksOpen }) => {
 };
 
 //
+
+//
+
+export const CloseIcon = ({ onClick }) => {
+  return <i className="fa-light fa-xmark" onClick={onClick}></i>;
+};

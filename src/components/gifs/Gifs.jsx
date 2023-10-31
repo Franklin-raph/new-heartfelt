@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import GifsSkeleton from "./GifsSkeleton";
 
-const Gifs = ({ closeGif, setComment }) => {
+const Gifs = ({ closeGif, setComment, selectedGif, setSelectedGif }) => {
   const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
   const [gifs, setGifs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gifWord, setGifWord] = useState("");
-  const [selectedGif, setSelectedGif] = useState(
-    localStorage.getItem("selectedGif") || ""
-  );
 
   //
   useEffect(() => {
