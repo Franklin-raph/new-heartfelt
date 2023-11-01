@@ -100,7 +100,7 @@ const DeliveryDetails = ({ baseUrl }) => {
         recipientEmail: recipientEmail,
         recipientFullName: recipientFullName,
         // addConfetti: "false",
-        addMedia:addMedia,
+        addMedia: addMedia,
         sendToEmail: sendToEmail,
         cardCoverUrl: uploadedCard,
         date: deliveryDate,
@@ -147,9 +147,9 @@ const DeliveryDetails = ({ baseUrl }) => {
         }),
       });
       const data = await response.json();
-      if(data.message === "Access token invalid"){
-        navigate('/sign-in')
-        localStorage.clear()
+      if (data.message === "Access token invalid") {
+        navigate("/sign-in");
+        localStorage.clear();
       }
       console.log(data);
       if (response) setLoader(false);
