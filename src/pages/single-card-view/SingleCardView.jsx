@@ -895,7 +895,7 @@ const SingleCardView = ({ baseUrl }) => {
                   <input
                     type="file"
                     id="upload_card_audio"
-                    accept="audio/*"
+                    accept="audio/*, .webm"
                     onChange={handleReadAudioFile}
                   />
                 </>
