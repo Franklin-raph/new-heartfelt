@@ -58,6 +58,9 @@ const SingleCardView = ({ baseUrl }) => {
   const [uploadedPhoto, setUploadedPhoto] = useState(
     localStorage.getItem("uploadedPhoto")
   );
+  const [uploadedAudio, setUploadedAudio] = useState(
+    localStorage.getItem("uploadedAudio") || ""
+  );
   const [signatureType, setSignatureType] = useState("");
   // const selectedGif = localStorage.getItem("selectedGif");
   const [selectedGif, setSelectedGif] = useState(
@@ -77,15 +80,25 @@ const SingleCardView = ({ baseUrl }) => {
 
   const handleRemoveGif = () => {
     setSelectedGif("");
+    localStorage.removeItem("selectedGif");
+    setShowTextEditModalBtn(false);
   };
 
   const handleRemoveUpladedPhoto = () => {
     setUploadedPhoto("");
+    localStorage.removeItem("uploadedPhoto");
+    setShowTextEditModalBtn(false);
+  };
+
+  const handleRemoveUpladedAudio = () => {
+    setUploadedAudio("");
+    localStorage.removeItem("uploadedAudio");
+    setShowTextEditModalBtn(false);
   };
 
   const handleClickedAudio = () => {
-    setAddAudio(!addAudio);
-    setIsAudio(!isAudio);
+    setAddAudio(true);
+    setIsAudio(true);
     setShowTextEditModalBtn(true);
   };
 
@@ -106,6 +119,20 @@ const SingleCardView = ({ baseUrl }) => {
 
   //
   const [addAudio, setAddAudio] = useState(false);
+
+  const handleReadAudioFile = (e) => {
+    const audioFile = e.target.files[0];
+
+    if (audioFile) {
+      const audioReader = new FileReader();
+      audioReader.onload = () => {
+        const audioUrl = audioReader.result;
+        localStorage.setItem("uploadedAudio", audioUrl);
+        setComment(audioUrl);
+      };
+      audioReader.readAsDataURL(audioFile);
+    }
+  };
 
   //
   const [commentStyles, setCommentStyles] = useState({
@@ -312,6 +339,7 @@ const SingleCardView = ({ baseUrl }) => {
       }
     }, 1000);
 
+    setUploadedAudio(localStorage.getItem("uploadedAudio"));
     return () => {
       clearInterval(timer);
     };
@@ -571,6 +599,12 @@ const SingleCardView = ({ baseUrl }) => {
               <div className="selected_photo_cont">
                 <img src={uploadedPhoto} />
                 <CloseIcon onClick={handleRemoveUpladedPhoto} />
+              </div>
+            )}
+            {uploadedAudio && (
+              <div className="selected_audio_cont">
+                <audio src={uploadedAudio} controls={true}></audio>
+                <CloseIcon onClick={handleRemoveUpladedAudio} />
               </div>
             )}
             {showTextEditModalBtn && (
@@ -858,7 +892,12 @@ const SingleCardView = ({ baseUrl }) => {
                   >
                     Upload Audio
                   </label>
-                  <input type="file" id="upload_card_audio" accept="audio/*" />
+                  <input
+                    type="file"
+                    id="upload_card_audio"
+                    accept="audio/*"
+                    onChange={handleReadAudioFile}
+                  />
                 </>
               )}
             </>

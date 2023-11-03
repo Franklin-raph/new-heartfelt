@@ -4001,15 +4001,24 @@ nav input {
   z-index: 5555;
 }
 
+.selected_audio_cont {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: auto;
+  width: auto;
+  z-index: 5555;
+}
+
 .selected_gif_cont i,
-.selected_photo_cont i {
+.selected_photo_cont i,
+.selected_audio_cont i {
   position: absolute;
   z-index: 444;
-  right: -10px;
-  top: 0;
+  right: -8px;
+  top: 5px;
   color: var(--minor-color-3);
   cursor: pointer;
-  background: var();
 }
 
 .selected_gif_cont img {
@@ -4026,8 +4035,9 @@ nav input {
   top: 20px;
   left: 10px;
   height: 100px;
-  width: 300px;
+  min-width: 100px;
   z-index: 555;
+  object-fit: cover;
 }
 
 .selected_photo_cont img {
