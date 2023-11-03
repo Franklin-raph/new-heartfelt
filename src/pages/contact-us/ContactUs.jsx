@@ -9,6 +9,8 @@ const ContactUs = ({ baseUrl }) => {
     email: "",
     subject: "",
   });
+
+  const goBack = () => {};
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { name, email, content, subject } = contactInfo;
